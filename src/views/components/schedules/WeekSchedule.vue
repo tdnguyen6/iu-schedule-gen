@@ -74,10 +74,12 @@ export default class WeekSchedule extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .week-schedule {
+  overflow: hidden;
+
   .week-schedule-day-container {
     display: flex;
-    margin-left: 5rem;
-    overflow: scroll;
+    margin-left: 4.5rem;
+    overflow: auto;
     &::-webkit-scrollbar {
       display: none;
     }
@@ -101,8 +103,8 @@ export default class WeekSchedule extends Vue {
     }
     th,
     td {
-      padding: 0 0.25rem;
-      width: 4.5rem;
+      padding: 0 0.2rem;
+      width: 4.2rem;
       background: cornsilk;
     }
     th {

@@ -1,6 +1,10 @@
 dependencies:
+  '@types/swiper': 5.3.1
   core-js: 3.6.5
+  swiper: 5.4.1
   vue: 2.6.11
+  vue-awesome-swiper: 4.1.1_swiper@5.4.1+vue@2.6.11
+  vue-carousel: 0.18.0
   vue-class-component: 7.2.3_vue@2.6.11
   vue-property-decorator: 8.4.2_vue@2.6.11
   vue-router: 3.3.2
@@ -11,6 +15,7 @@ devDependencies:
   '@vue/cli-plugin-babel': 4.4.1_@vue+cli-service@4.4.1
   '@vue/cli-plugin-e2e-cypress': 4.4.1_273d0fb808842ad773f4e9eaa0013e01
   '@vue/cli-plugin-eslint': 4.4.1_273d0fb808842ad773f4e9eaa0013e01
+  '@vue/cli-plugin-router': 4.4.1_@vue+cli-service@4.4.1
   '@vue/cli-plugin-typescript': 4.4.1_4f603748d499914a90f9b4455beaf9eb
   '@vue/cli-plugin-unit-jest': 4.4.1_6750c3d86d8a0d11702676653385306a
   '@vue/cli-service': 4.4.1_ba2f21db28edc27b305b3eec37a74bab
@@ -1343,6 +1348,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
+  /@types/swiper/5.3.1:
+    dev: false
+    resolution:
+      integrity: sha512-P0UHpUQDQGXy1FQI5/5WPJYCGZeNAzutedkj8zuIi4NbeU3l8eMn3IvtCFqFGPD0qkECiI6IkX07rjyhKnPQPg==
   /@types/webpack-env/1.15.2:
     dev: true
     resolution:
@@ -4145,6 +4154,16 @@ packages:
     dev: true
     resolution:
       integrity: sha512-2/xPb3ORsQ42nHYiSunXkDjPLBaEj/xTwUO4B7XCZQTRk7EBtTOPaygh10YAAh2OI1Qrp6NWfpAhzswj0ydt9g==
+  /dom-walk/0.1.2:
+    dev: false
+    resolution:
+      integrity: sha512-6QvTW9mrGeIegrFXdtQi9pk7O/nSK6lSdXW2eqUspN5LWD7UTji2Fqw5V2YLjBpHEoU9Xl/eUWNpDeZvoyOv2w==
+  /dom7/2.1.5:
+    dependencies:
+      ssr-window: 2.0.0
+    dev: false
+    resolution:
+      integrity: sha512-xnhwVgyOh3eD++/XGtH+5qBwYTgCm0aW91GFgPJ3XG+jlsRLyJivnbP0QmUBFhI+Oaz9FV0s7cxgXHezwOEBYA==
   /domain-browser/1.2.0:
     dev: true
     engines:
@@ -5413,6 +5432,13 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-sxnA3UYH81PzvpzKTHL8FIxJ9EU=
+  /global/4.4.0:
+    dependencies:
+      min-document: 2.19.0
+      process: 0.11.10
+    dev: false
+    resolution:
+      integrity: sha512-wv/LAoHdRE3BeTGz53FAamhGlPLhlssK45usmGFThIi4XqnBmjKQ16u+RNbP7WvigRZDxUsM0J3gcQ5yicaL0w==
   /globals/11.12.0:
     dev: true
     engines:
@@ -7748,6 +7774,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
+  /min-document/2.19.0:
+    dependencies:
+      dom-walk: 0.1.2
+    dev: false
+    resolution:
+      integrity: sha1-e9KC4/WELtKVu3SM3Z8f+iyCRoU=
   /mini-css-extract-plugin/0.9.0_webpack@4.43.0:
     dependencies:
       loader-utils: 1.4.0
@@ -9281,7 +9313,6 @@ packages:
     resolution:
       integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
   /process/0.11.10:
-    dev: true
     engines:
       node: '>= 0.6.0'
     resolution:
@@ -9581,6 +9612,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
+  /regenerator-runtime/0.12.1:
+    dev: false
+    resolution:
+      integrity: sha512-odxIc1/vDlo4iZcfXqRYFj0vpXFNoGdKMAUieAlFYO6m/nl5e9KR/beGf41z4a1FI+aQgtjhuaSlDxQ0hmkrHg==
   /regenerator-runtime/0.13.5:
     dev: true
     resolution:
@@ -10455,6 +10490,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-HXXqVUq7+pcKeLqqZj6mHFUMvXtOJt1uoUx09pFW6011inTMxqI8BA8PM95myrIyyKwdnzjdFjLiE6KBPVtJIg==
+  /ssr-window/2.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-NXzN+/HPObKAx191H3zKlYomE5WrVIkoCB5IaSdvKokxTpjBdWfr0RaP+1Z5KOfDT0ZVz+2tdtiBkhsEQ9p+0A==
   /ssri/6.0.1:
     dependencies:
       figgy-pudding: 3.5.2
@@ -10820,6 +10859,16 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-yhy/sQYxR5BkC98CY7o31VGsg014AKLEPxdfhora76l36hD9Rdy5NZA/Ocn6yayNPgSamYdtX2rFJdcv07AYVw==
+  /swiper/5.4.1:
+    dependencies:
+      dom7: 2.1.5
+      ssr-window: 2.0.0
+    dev: false
+    engines:
+      node: '>= 4.7.0'
+    requiresBuild: true
+    resolution:
+      integrity: sha512-l2EiWe7uOXB2EBMVLtJqn51FW22wF9e24WETT+S+tuFNvSDq1gadc/hyGGsAMqFGKJKIO6q6cqk7ToVaOI+onw==
   /symbol-observable/1.0.1:
     dev: true
     engines:
@@ -11525,6 +11574,26 @@ packages:
     dev: true
     resolution:
       integrity: sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
+  /vue-awesome-swiper/4.1.1_swiper@5.4.1+vue@2.6.11:
+    dependencies:
+      swiper: 5.4.1
+      vue: 2.6.11
+    dev: false
+    engines:
+      node: '>=8'
+    peerDependencies:
+      swiper: ^5.2.0
+      vue: 2.x
+    resolution:
+      integrity: sha512-50um10t6N+lJaORkpwSi1wWuMmBI1sgFc9Znsi5oUykw2cO5DzLaBHcO2JNX21R+Ue4TGoIJDhhxjBHtkFrTEQ==
+  /vue-carousel/0.18.0:
+    dependencies:
+      global: 4.4.0
+      regenerator-runtime: 0.12.1
+      vue: 2.6.11
+    dev: false
+    resolution:
+      integrity: sha512-a2zxh7QJioDxNMguqcuJ7TPbfgK5bGDaAXIia7NWxPAWsEvNE4ZtHgsGu40L5Aha4uyjmNKXvleB14QAXFoKig==
   /vue-class-component/7.2.3_vue@2.6.11:
     dependencies:
       vue: 2.6.11
@@ -12117,11 +12186,13 @@ packages:
       integrity: sha512-jcKpkthap6x63MB4TxwCyuIGkV0oYP/YRyuQU5UO0Yz/E/ZAu+653/uov+phdmO54n6BcvFRyyt0RRrWdN2mpw==
 specifiers:
   '@types/jest': ^24.0.19
+  '@types/swiper': ^5.3.1
   '@typescript-eslint/eslint-plugin': ^2.33.0
   '@typescript-eslint/parser': ^2.33.0
   '@vue/cli-plugin-babel': ~4.4.0
   '@vue/cli-plugin-e2e-cypress': ~4.4.0
   '@vue/cli-plugin-eslint': ~4.4.0
+  '@vue/cli-plugin-router': ~4.4.0
   '@vue/cli-plugin-typescript': ~4.4.0
   '@vue/cli-plugin-unit-jest': ~4.4.0
   '@vue/cli-service': ~4.4.0
@@ -12136,8 +12207,11 @@ specifiers:
   node-sass: ^4.12.0
   prettier: ^1.19.1
   sass-loader: ^8.0.2
+  swiper: ^5.4.1
   typescript: ~3.9.3
   vue: ^2.6.11
+  vue-awesome-swiper: ^4.1.1
+  vue-carousel: ^0.18.0
   vue-class-component: ^7.2.3
   vue-property-decorator: ^8.4.2
   vue-router: ^3.3.2
