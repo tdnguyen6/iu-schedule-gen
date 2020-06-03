@@ -44,6 +44,6 @@ export default class CustomSwiper extends Vue {
 
 <style lang="scss">
 .my-swiper-container {
-  margin: 20px auto;
+  margin: 1rem auto;
 }
 </style>

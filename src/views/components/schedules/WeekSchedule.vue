@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import DaySchedule from "@/views/components/DaySchedule.vue";
+import DaySchedule from "@/views/components/schedules/DaySchedule.vue";
 import schedule from "@/services/logics/Demo";
 import { WeekDay } from "@/services/logics/WeekDay";
 import { Session } from "@/services/logics/Session";
@@ -105,12 +105,11 @@ export default class WeekSchedule extends Vue {
     td {
       padding: 0 0.2rem;
       width: 4.2rem;
-      background: cornsilk;
+      background: var(--schedule-free-bg);
     }
     th {
       font-weight: 700;
-      background: orangered;
-      color: #222;
+      background: var(--schedule-header);
     }
   }
 }

@@ -1,33 +1,20 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="@/views/assets/logo.png" />
-    <HelloWorld msg="This is IU schedule Generator" />
-    <CustomSwiper :slidesContent="slides" slidesType="WeekSchedule" />
+    <!-- <img alt="Vue logo" src="@/views/assets/images/logo.png" /> -->
+    <Navbar />
   </div>
 </template>
 
 <script lang="ts">
-import HelloWorld from "@/views/components/HelloWorld.vue";
 import { Component, Vue } from "vue-property-decorator";
-import CustomSwiper from "@/views/components/swipers/Swiper.vue";
-import WeekSchedule from "@/views/components/WeekSchedule.vue";
+import Navbar from "@/views/components/auxiliaries/Navbar.vue";
 
 @Component({
   components: {
-    HelloWorld,
-    CustomSwiper,
-    WeekSchedule
+    Navbar
   }
 })
-export default class Home extends Vue {
-  private slides: Vue[] = [];
-  constructor() {
-    super();
-    for (let i = 0; i < 70; i++) {
-      this.slides.push(new WeekSchedule());
-    }
-  }
-}
+export default class Home extends Vue {}
 </script>
 
 <style lang="scss" scope></style>

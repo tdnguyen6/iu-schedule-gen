@@ -69,7 +69,7 @@ export default class DaySchedule extends Vue {
   }
   th,
   td {
-    background: cornsilk;
+    background: var(--schedule-free-bg);
     padding: 0 0.25rem;
     margin: 0;
   }
@@ -82,14 +82,13 @@ export default class DaySchedule extends Vue {
 
   th {
     font-weight: 700;
-    background: orangered;
-    color: #222;
+    background: var(--schedule-header);
   }
 
   .occupied {
     font-weight: 500;
     font-size: 0.75rem;
-    background: khaki;
+    background: var(--schedule-busy-bg);
     text-align: center;
   }
 }

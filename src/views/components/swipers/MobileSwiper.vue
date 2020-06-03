@@ -45,32 +45,17 @@ export default class MobileSwiper extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/variables.scss";
+// @import "../../assets/variables.scss";
 .swiper {
   height: 32rem;
   .swiper-pagination {
     top: unset;
-  }
-  /deep/ .swiper-pagination-bullet-custom {
-    $size: 20px;
-    width: $size !important;
-    height: $size !important;
-    line-height: $size !important;
-    text-align: center;
-    color: $text-color;
-    opacity: 0.7;
-    background: rgba($text-color, 0.2);
-    transition: all $transition-time-normal;
-
-    &:hover {
-      opacity: 1;
-    }
-
-    &.swiper-pagination-bullet-active {
-      opacity: 1;
-      color: $white;
-      background: #007aff;
-    }
+    left: 25%;
+    width: 50%;
+    background: var(--swiper-pagination-bg);
+    padding: 0.25rem;
+    border-radius: 1rem;
+    font-weight: 700;
   }
 }
 </style>
