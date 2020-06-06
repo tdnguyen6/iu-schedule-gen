@@ -10,7 +10,10 @@
         <button id="login" class="profile-btn">Sign in</button>
         <button id="signup" class="profile-btn">Sign up</button>
         <button class="hamburger-menu" @click="clickHamburgerMenu">
-          <font-awesome-icon :icon="['fas', 'bars']" v-if="routerLinks.length <= 0" />
+          <font-awesome-icon
+            :icon="['fas', 'bars']"
+            v-if="routerLinks.length <= 0"
+          />
           <font-awesome-icon :icon="['fas', 'times']" v-else />
         </button>
       </div>
@@ -121,7 +124,7 @@ export default class Navbar extends Vue {
       min-width: 225px;
       text-align: center;
       background: var(--logo-text);
-      -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
