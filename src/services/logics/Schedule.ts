@@ -1,19 +1,17 @@
 import { Session } from "./Session";
-import { WeekDay } from "./WeekDay";
 
 export class Schedule {
   sessionByDay: { [key: string]: Session[] } = {};
 
   addSession(session: Session): number {
-    const dayName: string = WeekDay[session.weekDay];
-    if (!(dayName in this.sessionByDay)) {
+    if (!(session.weekDay in this.sessionByDay)) {
       const sessionList: Session[] = [];
       sessionList.push(session);
-      this.sessionByDay[dayName] = sessionList;
+      this.sessionByDay[session.weekDay] = sessionList;
       return 1;
     } else {
-      if (!this.sessionByDay[dayName].includes(session)) {
-        this.sessionByDay[dayName].push(session);
+      if (!this.sessionByDay[session.weekDay].includes(session)) {
+        this.sessionByDay[session.weekDay].push(session);
         return 2;
       }
       return 0;
@@ -21,10 +19,10 @@ export class Schedule {
   }
 
   removeSession(session: Session): number {
-    const dayName: string = WeekDay[session.weekDay];
-    if (dayName in this.sessionByDay) {
-      if (this.sessionByDay[dayName].includes(session)) {
-        this.sessionByDay[dayName] = this.sessionByDay[dayName].filter(
+    if (session.weekDay in this.sessionByDay) {
+      if (this.sessionByDay[session.weekDay].includes(session)) {
+        // eslint-disable-next-line
+        this.sessionByDay[session.weekDay] = this.sessionByDay[session.weekDay].filter(
           // eslint-disable-next-line
           (s) => s != session
         );

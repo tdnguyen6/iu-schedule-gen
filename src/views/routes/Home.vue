@@ -2,24 +2,28 @@
   <div class="home">
     <!-- <img alt="Vue logo" src="@/views/assets/images/logo.png" /> -->
     <Navbar />
-    <courses-form :course="course" />
+    <course-form :course="course" />
+    <session-form :session="session" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Navbar from "@/views/components/auxiliaries/Navbar.vue";
-import CoursesForm from "@/views/components/forms/CoursesForm.vue";
+import CourseForm from "@/views/components/forms/CourseForm.vue";
+import SessionForm from "@/views/components/forms/SessionForm.vue";
 import { courses } from "@/services/logics/Demo";
 
 @Component({
   components: {
     Navbar,
-    CoursesForm
+    CourseForm,
+    SessionForm
   }
 })
 export default class Home extends Vue {
   private course = courses[0];
+  private session = this.course.classList[0].getAllSessions()[0];
 }
 </script>
 

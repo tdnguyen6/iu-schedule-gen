@@ -1,5 +1,6 @@
 import { Course } from "./Course";
 import { Schedule } from "./Schedule";
+import { Session } from "./Session";
 
 export class Class {
   course: Course;
@@ -11,6 +12,7 @@ export class Class {
   }
 
   getAllSessions() {
-    return Object.values(this.schedule.sessionByDay).flat(1);
+    const clonedSessionByDay: { [key: string]: Session[] } = Object.assign({}, this.schedule.sessionByDay);
+    return Object.values(clonedSessionByDay).flat(1);
   }
 }

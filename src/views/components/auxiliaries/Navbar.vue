@@ -134,10 +134,9 @@ export default class Navbar extends Vue {
       align-items: center;
       justify-content: space-evenly;
       .profile-btn {
-        border: 1px solid var(--shadow);
+        border: 1px dotted var(--text-color);
         // border: none;
         box-shadow: 3px 3px 2px var(--shadow);
-        border-radius: 0.5rem;
         font: inherit;
         padding: 0.5rem 1rem;
         margin: 0 0.5rem;
@@ -181,6 +180,7 @@ export default class Navbar extends Vue {
       li {
         list-style-type: none;
         border-top: 1px dashed var(--shadow);
+        border-bottom: 3px solid transparent;
         &:hover,
         .active {
           background: var(--nav-link-hover);

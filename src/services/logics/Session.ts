@@ -5,7 +5,7 @@ export class Session {
   startPeriod: number;
   periodCount: number;
   instructor: string;
-  weekDay: WeekDay;
+  weekDay: string;
   class: Class;
   course: Course;
   room: string;
@@ -21,14 +21,14 @@ export class Session {
     type: SessionType
   ) {
     this.class = c;
-    c.schedule.addSession(this);
     this.course = c.course;
     this.startPeriod = start;
     this.periodCount = count;
     this.instructor = instructor;
-    this.weekDay = weekDay;
+    this.weekDay = WeekDay[weekDay];
     this.room = room;
     this.type = type;
+    c.schedule.addSession(this);
   }
 }
 

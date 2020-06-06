@@ -1,7 +1,7 @@
 <template>
   <div class="course-class-session">
     <Modal :control="control" />
-    <button @click="control.toggle = !control.toggle" class="add-course-btn">
+    <button @click="toggleModal()" class="add-course-btn">
       <font-awesome-icon :icon="['fas', 'plus']" /> Add Course
     </button>
     <transition-group name="ccs-list" tag="ul" appear>
@@ -11,22 +11,18 @@
         :style="`--i: ${courseIndex}`"
         class="course-li"
       >
-        <div
-          class="title-pane course-title"
-          @click="flipCourseExpand(courseIndex)"
-        >
-          {{ `${course.credit}: ${course.title}` }}
+        <div class="title-pane course-title">
+          <span @click="flipCourseExpand(courseIndex)" class="info-pane">
+            {{ `${course.credit}: ${course.title}` }}
+          </span>
           <span class="edit-del-btn">
-            <button>Edit</button>
-            <button>Delete</button>
+            <button @click="onViewCourse(course)">View</button>
+            <button @click="onDeleteCourse(courseIndex)">Delete</button>
           </span>
         </div>
         <transition name="ccs-list">
           <div v-if="expandInfoList[courseIndex].courseExpand">
-            <button
-              @click="control.toggle = !control.toggle"
-              class="add-class-btn"
-            >
+            <button @click="toggleModal()" class="add-class-btn">
               <font-awesome-icon :icon="['fas', 'plus']" /> Add Class
             </button>
             <transition-group name="ccs-list" tag="ul" appear>
@@ -40,10 +36,13 @@
                   class="title-pane class-title"
                   @click="flipClassExpand(courseIndex, classIndex)"
                 >
-                  {{ `Class ${classIndex}` }}
+                  <span class="info-pane">
+                    {{ `Class ${classIndex}` }}
+                  </span>
                   <span class="edit-del-btn">
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button @click="onDeleteClass(courseIndex, classIndex)">
+                      Delete
+                    </button>
                   </span>
                 </div>
                 <transition name="ccs-list">
@@ -53,10 +52,7 @@
                         expandInfoList[courseIndex].classExpand[classIndex]
                     "
                   >
-                    <button
-                      @click="control.toggle = !control.toggle"
-                      class="add-session-btn"
-                    >
+                    <button @click="toggleModal()" class="add-session-btn">
                       <font-awesome-icon :icon="['fas', 'plus']" /> Add Session
                     </button>
                     <transition-group name="ccs-list" tag="ul" appear>
@@ -68,10 +64,24 @@
                         class="session-li"
                       >
                         <div class="title-pane session-title">
-                          {{ `Session ${sessionIndex}` }}
+                          <span class="info-pane">
+                            {{ `Session ${sessionIndex}` }}
+                          </span>
                           <span class="edit-del-btn">
-                            <button>Edit</button>
-                            <button>Delete</button>
+                            <button @click="onViewSession(session)">
+                              View
+                            </button>
+                            <button
+                              @click="
+                                onDeleteSession(
+                                  courseIndex,
+                                  classIndex,
+                                  sessionIndex
+                                )
+                              "
+                            >
+                              Delete
+                            </button>
                           </span>
                         </div>
                       </li>
@@ -90,7 +100,8 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { Course } from "@/services/logics/Course";
-// import { Session } from "@/services/logics/Session";
+import { Session } from "@/services/logics/Session";
+import { Class } from "@/services/logics/Class";
 // import { SessionType } from "@/services/logics/Session";
 // import { WeekDay } from "@/services/logics/WeekDay";
 import Modal from "@/views/components/auxiliaries/Modal.vue";
@@ -108,8 +119,14 @@ interface ExpandInfo {
 export default class CourseClassSession extends Vue {
   @Prop() private courseList!: Course[];
   private expandInfoList: ExpandInfo[] = [];
-  private control = {
-    toggle: false
+  private control: {
+    toggle: boolean;
+    type: string;
+    content: Course | Session | null;
+  } = {
+    toggle: false,
+    type: "",
+    content: null
   };
 
   constructor() {
@@ -122,8 +139,6 @@ export default class CourseClassSession extends Vue {
       };
       this.expandInfoList.push(expandInfo);
     }
-
-    console.log(this.courseList[0].classList[0].getAllSessions());
   }
 
   flipClassExpand(courseIndex: number, classIndex: number) {
@@ -136,6 +151,47 @@ export default class CourseClassSession extends Vue {
     this.expandInfoList[courseIndex].courseExpand = !this.expandInfoList[
       courseIndex
     ].courseExpand;
+  }
+
+  onViewCourse(course: Course) {
+    this.control.content = course;
+    this.control.type = "course-form";
+    this.toggleModal();
+    console.log(course);
+  }
+
+  onViewSession(session: Session) {
+    this.control.content = session;
+    this.control.type = "session-form";
+    this.toggleModal();
+  }
+
+  onDeleteCourse(courseIndex: number) {
+    this.courseList.splice(courseIndex, 1);
+    this.expandInfoList.splice(courseIndex, 1);
+  }
+
+  onDeleteClass(courseIndex: number, classIndex: number) {
+    const course: Course = this.courseList[courseIndex];
+    const _class: Class = course.classList[classIndex];
+    course.removeClass(_class);
+    this.expandInfoList[courseIndex].classExpand.splice(classIndex, 1);
+  }
+
+  onDeleteSession(
+    courseIndex: number,
+    classIndex: number,
+    sessionIndex: number
+  ) {
+    const course: Course = this.courseList[courseIndex];
+    const _class: Class = course.classList[classIndex];
+    const session: Session = _class.getAllSessions()[sessionIndex];
+    _class.schedule.removeSession(session);
+    this.$forceUpdate();
+  }
+
+  toggleModal() {
+    this.control.toggle = !this.control.toggle;
   }
 }
 </script>
@@ -180,10 +236,21 @@ export default class CourseClassSession extends Vue {
   }
   .title-pane {
     display: flex;
-    justify-content: space-between;
     cursor: pointer;
-    padding: 1rem;
     margin: 1rem 0;
+    justify-content: space-between;
+    align-items: stretch;
+    .info-pane {
+      flex-grow: 1;
+      padding: 1rem;
+    }
+
+    .edit-del-btn {
+      padding-right: 1rem;
+      button {
+        height: 100%;
+      }
+    }
   }
 
   .course-title {
@@ -196,7 +263,6 @@ export default class CourseClassSession extends Vue {
 
   .session-title {
     background: var(--session-title-bg);
-    cursor: default;
   }
 
   ul {
