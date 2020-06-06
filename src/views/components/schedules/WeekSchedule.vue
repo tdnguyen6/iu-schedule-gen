@@ -30,7 +30,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import DaySchedule from "@/views/components/schedules/DaySchedule.vue";
-import schedule from "@/services/logics/Demo";
+import { schedule } from "@/services/logics/Demo";
 import { WeekDay } from "@/services/logics/WeekDay";
 import { Session } from "@/services/logics/Session";
 

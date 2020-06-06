@@ -99,4 +99,11 @@ schedule.addSession(wad1Lab);
 schedule.addSession(wad2Theory);
 schedule.addSession(wad2Lab);
 
-export default schedule;
+export { schedule };
+
+let courses = [
+  dsa,
+  wad
+];
+
+export { courses };

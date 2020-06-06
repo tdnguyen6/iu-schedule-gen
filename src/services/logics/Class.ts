@@ -9,4 +9,8 @@ export class Class {
     this.course = course;
     course.addClass(this);
   }
+
+  getAllSessions() {
+    return Object.values(this.schedule.sessionByDay).flat(1);
+  }
 }

@@ -1,70 +1,66 @@
-// sizes
-$container-width: 960px;
-$radius: 1px;
+// monokai
+$m-c1: #FF6188;
+$m-c2: #FC9867;
+$m-c3: #FFD866;
+$m-c4: #A9DC76;
+$m-c5: #78DCE8;
+$m-c6: #AB9DF2;
+$m-c7: #FDF9F3;
+$m-c8: #2C292D;
+$gradient-light-bg: linear-gradient(to right, #{$m-c8}, #{$m-c1}, #{$m-c2});
+$gradient-dark-bg: linear-gradient(to right, #{$m-c1}, #{$m-c2}, #{$m-c3});
 
-// gaps
-$golden-ratio: 0.618;
-$gap: 1rem; // ~14px
-$sm-gap: $gap * $golden-ratio; // ~8.6px
-$xs-gap: $sm-gap / 2; // ~4.4px
-$lg-gap: $sm-gap * 2; // ~17px
-
-// times
-$transition-time-fast: 0.15s;
-$transition-time-normal: 0.25s;
-$transition-time-slow: 0.38s;
-
-// fonts
-$font-size-base: 14px;
-$font-size-large: $font-size-base * 1.1; // ~15.4px
-$font-size-huge: $font-size-base * 1.3; // ~19px
-$font-size-small: $font-size-base * 0.888; // ~12.4px
-
-$iconfont-size: $font-size-base * 1.35;
-
-// colors
-$github-primary: #24292e;
-$github-secondary: #30363c;
-$github-text-primary: #0366d6;
-$github-sponsor-primary: rgb(234, 74, 170);
-
-$body-bg: #e0e0e0;
-$module-bg: white;
-$module-bg-darken: #f7f7f7;
-$text-reverse: $module-bg-darken;
-* {
-  --text-color-dark: #353535;
-  --text-color-light: #eee;
-}
-// $text-secondary: darken($text-color, 20%);
 body {
-  --bg: #f0f8ff;
-  --nav-bg: #ababab;
-  --hamburger-menu-bg: #c9c9c9;
-  --nav-link-hover: rgba(50, 60, 70, 0.25);
-  --nav-link-hover-border-bottom: #0400ff;
-  --text-color: var(--text-color-dark);
+  --bg: #{$m-c7};
+  --nav-bg: var(--bg);
+  --shadow: #{darken($m-c7, 10%)};
+  --text-color: #{$m-c8};
+  --nav-link-hover: var(--shadow);
+  --nav-link-hover-border-bottom: #{$m-c1};
+  --logo-text: #{$gradient-light-bg};
+
   --schedule-free-bg: #fff8dc;
   --schedule-busy-bg: #f0e68c;
   --schedule-header: #ff4500;
   --swiper-pagination-bg: rgba(50, 50, 50, 0.25);
   --swiper-pagination-active-bg: #007aff;
-  --login-btn-bg: #ff4b4b;
-  --login-btn-hover: #ff0000;
-  --signup-btn-bg: #2ae067;
-  --signup-btn-hover: #00ff00;
+
+  --login-btn-bg: #{lighten($m-c1, 10%)};
+  --login-btn-hover: #{$m-c1};
+  --signup-btn-bg: #{lighten($m-c3, 10%)};
+  --signup-btn-hover: #{$m-c3};
+
+  --modal-bg: #{$m-c6};
+  --course-title-bg: #{lighten($m-c1, 10%)};
+  --class-title-bg: #{lighten($m-c2, 10%)};
+  --session-title-bg: #{lighten($m-c3, 10%)};
 }
 
 body[data-theme="dark"] {
-  --bg: #24252a;
-  --nav-bg: #111;
-  --hamburger-menu-bg: #343434;
-  --text-color: var(--text-color-light);
-  --nav-link-hover: rgba(150, 160, 170, 0.25);
-  --nav-link-hover-border-bottom: #ff4500;
+  --bg: #{$m-c8};
+  --nav-bg: var(--bg);
+  --shadow: #{lighten($m-c8, 10%)};
+  --text-color: #{$m-c7};
+  --nav-link-hover: var(--shadow);
+  --nav-link-hover-border-bottom: #{$m-c2};
+  --logo-text: #{$gradient-dark-bg};
+
   --schedule-free-bg: #016b42;
   --schedule-busy-bg: #0000ac;
   --schedule-header: #9b0101;
   --swiper-pagination-bg: rgba(200, 200, 200, 0.25);
   --swiper-pagination-active-bg: #007aff;
+
+  --login-btn-bg: #{desaturate(darken($m-c1, 15%), 30%)};
+  --login-btn-hover: #{darken($m-c1, 20%)};
+  --signup-btn-bg: #{desaturate(darken($m-c3, 15%), 30%)};
+  --signup-btn-hover: #{darken($m-c3, 20%)};
+
+  --modal-bg: var(--bg);
+  --course-title-bg: #{desaturate(darken($m-c1, 15%), 30%)};
+  --class-title-bg: #{desaturate(darken($m-c2, 15%), 30%)};
+  --session-title-bg: #{desaturate(darken($m-c3, 15%), 30%)};
+  // --course-title-bg: #{darken($m-c1, 25)};
+  // --class-title-bg: #{darken($m-c2, 25)};
+  // --session-title-bg: #{darken($m-c3, 25)};
 }

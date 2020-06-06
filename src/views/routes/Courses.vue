@@ -2,17 +2,24 @@
   <div class="courses">
     <Navbar />
     <h1>This is courses page</h1>
+    <CourseClassSession :courseList="iCourses" />
   </div>
 </template>
 
 <script lang="ts">
 import Navbar from "@/views/components/auxiliaries/Navbar.vue";
 import { Vue, Component } from "vue-property-decorator";
+import CourseClassSession from "@/views/components/functions/CourseClassSession.vue";
+import { courses } from "@/services/logics/Demo";
+import { Course } from "@/services/logics/Course";
 
 @Component({
   components: {
-    Navbar
+    Navbar,
+    CourseClassSession
   }
 })
-export default class Courses extends Vue {}
+export default class Courses extends Vue {
+  private iCourses: Course[] = courses;
+}
 </script>
