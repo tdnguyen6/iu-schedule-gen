@@ -12,7 +12,10 @@ export class Class {
   }
 
   getAllSessions() {
-    const clonedSessionByDay: { [key: string]: Session[] } = Object.assign({}, this.schedule.sessionByDay);
+    const clonedSessionByDay: { [key: string]: Session[] } = Object.assign(
+      {},
+      this.schedule.sessionByDay
+    );
     return Object.values(clonedSessionByDay).flat(1);
   }
 }

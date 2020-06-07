@@ -6,6 +6,7 @@ dependencies:
   '@fortawesome/vue-fontawesome': 0.1.9_f077f97b6b91f23b62bfebdc9fa7b1a4
   '@types/swiper': 5.3.1
   core-js: 3.6.5
+  fast-cartesian: 5.0.0
   swiper: 5.4.1
   vue: 2.6.11
   vue-awesome-swiper: 4.1.1_swiper@5.4.1+vue@2.6.11
@@ -4932,6 +4933,12 @@ packages:
       '0': node >=0.6.0
     resolution:
       integrity: sha1-lpGEQOMEGnpBT4xS48V06zw+HgU=
+  /fast-cartesian/5.0.0:
+    dev: false
+    engines:
+      node: '>=10.17.0'
+    resolution:
+      integrity: sha512-FnvKkmMx/suq1s9Coagu3jqwNJDRWn2+QIv6LFSubXyys/kcBHRM3HFUoFQjENlUSsAh5qgcyJaU0aW8U+2Awg==
   /fast-deep-equal/3.1.1:
     dev: true
     resolution:
@@ -12232,6 +12239,7 @@ specifiers:
   eslint: ^6.7.2
   eslint-plugin-prettier: ^3.1.3
   eslint-plugin-vue: ^6.2.2
+  fast-cartesian: ^5.0.0
   lint-staged: ^9.5.0
   node-sass: ^4.12.0
   prettier: ^1.19.1

@@ -21,7 +21,7 @@ body {
 
   --schedule-free-bg: var(--shadow);
   --schedule-busy-bg: #{darken($m-c7, 25%)};
-  --schedule-header: #{$m-c2};
+  --schedule-header: #{$m-c1};
   --swiper-pagination-bg: #{rgba($m-c8, 0.25)};
 
   --login-btn-bg: #{lighten($m-c1, 10%)};
