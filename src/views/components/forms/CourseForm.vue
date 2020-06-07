@@ -1,13 +1,15 @@
 <template>
   <div class="course-form">
     <label for="course-title">Course Title</label>
-    <div>
-      <input type="text" id="course-title" v-model="course.title" />
-    </div>
+    <input type="text" id="course-title" v-model.trim="content.title" />
     <label for="course-credit">Number of Credits</label>
-    <div>
-      <input type="text" id="course-credit" v-model="course.credit" />
-    </div>
+    <select id="course-credit" v-model.number="content.credit">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
   </div>
 </template>
 
@@ -19,13 +21,16 @@ import { Course } from "@/services/logics/Course";
   components: {}
 })
 export default class CourseForm extends Vue {
-  @Prop() course!: Course;
+  @Prop() content!: Course;
 }
 </script>
 
 <style lang="scss" scoped>
 .course-form {
-  input {
+  input,
+  select,
+  option {
+    display: block;
     background: var(--shadow);
     border: none;
     border-bottom: 1px dashed var(--text-color);

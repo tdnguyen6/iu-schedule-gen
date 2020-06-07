@@ -28,11 +28,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import DaySchedule from "@/views/components/schedules/DaySchedule.vue";
-import { schedule } from "@/services/logics/Demo";
 import { WeekDay } from "@/services/logics/WeekDay";
 import { Session } from "@/services/logics/Session";
+import { Schedule } from "@/services/logics/Schedule";
 
 @Component({
   components: {
@@ -40,10 +40,14 @@ import { Session } from "@/services/logics/Session";
   }
 })
 export default class WeekSchedule extends Vue {
+  @Prop() private content!: Schedule;
+  private schedule: Schedule = this.content;
+
+  // @Prop() schedule
   sessionListByDayNum(dayNum: number): Session[] {
     const dayName: string = WeekDay[dayNum];
-    if (dayName in schedule.sessionByDay) {
-      return schedule.sessionByDay[dayName];
+    if (dayName in this.schedule.sessionByDay) {
+      return this.schedule.sessionByDay[dayName];
     }
     return [];
   }
@@ -78,7 +82,7 @@ export default class WeekSchedule extends Vue {
 
   .week-schedule-day-container {
     display: flex;
-    margin-left: 4.5rem;
+    margin-left: 4.7rem;
     overflow: auto;
     &::-webkit-scrollbar {
       display: none;
@@ -91,7 +95,7 @@ export default class WeekSchedule extends Vue {
     text-align: center;
     &,
     tr {
-      border: 1px solid black;
+      border: 1px solid var(--text-color);
       border-collapse: collapse;
     }
     tbody {

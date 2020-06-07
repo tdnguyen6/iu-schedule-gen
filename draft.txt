@@ -1,0 +1,22 @@
+  get startPeriods(): number[] {
+    const res: number[] = [];
+    this.sessionList.forEach(s => res.push(+s.startPeriod));
+    return res;
+  }
+
+  get inPeriods(): number[] {
+    const res: number[] = [];
+    this.sessionList.forEach(s => {
+      for (let i = 0; i < s.periodCount; i++) {
+        res.push(i + s.startPeriod);
+      }
+    });
+    console.log(res);
+    return res;
+  }
+
+  get infoByStartPeriods(): { [key: number]: Session } {
+    const res: { [key: number]: Session } = {};
+    this.sessionList.forEach(s => (res[s.startPeriod] = s));
+    return res;
+  }

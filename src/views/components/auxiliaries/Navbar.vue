@@ -135,7 +135,6 @@ export default class Navbar extends Vue {
       justify-content: space-evenly;
       .profile-btn {
         border: 1px dotted var(--text-color);
-        // border: none;
         box-shadow: 3px 3px 2px var(--shadow);
         font: inherit;
         padding: 0.5rem 1rem;

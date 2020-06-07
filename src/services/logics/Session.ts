@@ -13,12 +13,13 @@ export class Session {
 
   constructor(
     c: Class,
-    weekDay: WeekDay,
-    start: number,
-    count: number,
-    instructor: string,
-    room: string,
-    type: SessionType
+    weekDay: WeekDay = WeekDay.MON,
+    start = 0,
+    count = 0,
+    instructor = "",
+    room = "",
+    // eslint-disable-next-line
+    type: SessionType = SessionType.THEORY
   ) {
     this.class = c;
     this.course = c.course;

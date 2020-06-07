@@ -82,7 +82,7 @@ const wad2Theory: Session = new Session(
 const wad2Lab: Session = new Session(
   wad2,
   WeekDay.SAT,
-  7,
+  4,
   1,
   "PQSLam",
   "A1.607",

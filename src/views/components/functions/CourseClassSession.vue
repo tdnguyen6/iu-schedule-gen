@@ -1,7 +1,7 @@
 <template>
   <div class="course-class-session">
     <Modal :control="control" />
-    <button @click="toggleModal()" class="add-course-btn">
+    <button @click="addCourse()" class="add-btn add-course-btn">
       <font-awesome-icon :icon="['fas', 'plus']" /> Add Course
     </button>
     <transition-group name="ccs-list" tag="ul" appear>
@@ -22,7 +22,10 @@
         </div>
         <transition name="ccs-list">
           <div v-if="expandInfoList[courseIndex].courseExpand">
-            <button @click="toggleModal()" class="add-class-btn">
+            <button
+              @click="addClass(courseIndex)"
+              class="add-btn add-class-btn"
+            >
               <font-awesome-icon :icon="['fas', 'plus']" /> Add Class
             </button>
             <transition-group name="ccs-list" tag="ul" appear>
@@ -52,7 +55,10 @@
                         expandInfoList[courseIndex].classExpand[classIndex]
                     "
                   >
-                    <button @click="toggleModal()" class="add-session-btn">
+                    <button
+                      @click="addSession(courseIndex, classIndex)"
+                      class="add-btn add-session-btn"
+                    >
                       <font-awesome-icon :icon="['fas', 'plus']" /> Add Session
                     </button>
                     <transition-group name="ccs-list" tag="ul" appear>
@@ -105,6 +111,7 @@ import { Class } from "@/services/logics/Class";
 // import { SessionType } from "@/services/logics/Session";
 // import { WeekDay } from "@/services/logics/WeekDay";
 import Modal from "@/views/components/auxiliaries/Modal.vue";
+import { ModalControl } from "@/views/components/auxiliaries/Modal.vue";
 
 interface ExpandInfo {
   courseExpand: boolean;
@@ -119,11 +126,8 @@ interface ExpandInfo {
 export default class CourseClassSession extends Vue {
   @Prop() private courseList!: Course[];
   private expandInfoList: ExpandInfo[] = [];
-  private control: {
-    toggle: boolean;
-    type: string;
-    content: Course | Session | null;
-  } = {
+  private control: ModalControl = {
+    title: "",
     toggle: false,
     type: "",
     content: null
@@ -131,19 +135,35 @@ export default class CourseClassSession extends Vue {
 
   constructor() {
     super();
-    for (let i = 0; i < this.courseList.length; i++) {
-      const course: Course = this.courseList[i];
-      const expandInfo: ExpandInfo = {
-        courseExpand: false,
-        classExpand: new Array(course.classList.length).fill(false)
-      };
-      this.expandInfoList.push(expandInfo);
+    this.expandInfoList = this.savedExpandInfo;
+  }
+
+  saveExpandInfo() {
+    // sessionStorage.setItem("expandInfo", JSON.stringify(this.expandInfoList));
+  }
+
+  get savedExpandInfo(): ExpandInfo[] {
+    const savedString = sessionStorage.getItem("expandInfo");
+    if (savedString == null) {
+      const expandInfoList: ExpandInfo[] = [];
+      for (let i = 0; i < this.courseList.length; i++) {
+        const course: Course = this.courseList[i];
+        const expandInfo: ExpandInfo = {
+          courseExpand: false,
+          classExpand: new Array(course.classList.length).fill(false)
+        };
+        expandInfoList.push(expandInfo);
+      }
+      return expandInfoList;
+    } else {
+      return JSON.parse(savedString);
     }
   }
 
   flipClassExpand(courseIndex: number, classIndex: number) {
     this.expandInfoList[courseIndex].classExpand[classIndex] = !this
       .expandInfoList[courseIndex].classExpand[classIndex];
+    this.saveExpandInfo();
     this.$forceUpdate();
   }
 
@@ -151,16 +171,18 @@ export default class CourseClassSession extends Vue {
     this.expandInfoList[courseIndex].courseExpand = !this.expandInfoList[
       courseIndex
     ].courseExpand;
+    this.saveExpandInfo();
   }
 
   onViewCourse(course: Course) {
+    this.control.title = "Course Details";
     this.control.content = course;
     this.control.type = "course-form";
     this.toggleModal();
-    console.log(course);
   }
 
   onViewSession(session: Session) {
+    this.control.title = "Session Details";
     this.control.content = session;
     this.control.type = "session-form";
     this.toggleModal();
@@ -169,6 +191,7 @@ export default class CourseClassSession extends Vue {
   onDeleteCourse(courseIndex: number) {
     this.courseList.splice(courseIndex, 1);
     this.expandInfoList.splice(courseIndex, 1);
+    this.saveExpandInfo();
   }
 
   onDeleteClass(courseIndex: number, classIndex: number) {
@@ -176,6 +199,7 @@ export default class CourseClassSession extends Vue {
     const _class: Class = course.classList[classIndex];
     course.removeClass(_class);
     this.expandInfoList[courseIndex].classExpand.splice(classIndex, 1);
+    this.saveExpandInfo();
   }
 
   onDeleteSession(
@@ -187,59 +211,98 @@ export default class CourseClassSession extends Vue {
     const _class: Class = course.classList[classIndex];
     const session: Session = _class.getAllSessions()[sessionIndex];
     _class.schedule.removeSession(session);
+    this.saveExpandInfo();
     this.$forceUpdate();
   }
 
   toggleModal() {
     this.control.toggle = !this.control.toggle;
   }
+
+  addCourse() {
+    const course: Course = new Course();
+    this.courseList.push(course);
+    const expandInfo: ExpandInfo = {
+      courseExpand: true,
+      classExpand: []
+    };
+    this.expandInfoList.push(expandInfo);
+    this.saveExpandInfo();
+    this.onViewCourse(course);
+  }
+
+  addClass(courseIndex: number) {
+    new Class(this.courseList[courseIndex]);
+    this.expandInfoList[courseIndex].classExpand.push(true);
+    this.saveExpandInfo();
+  }
+
+  addSession(courseIndex: number, classIndex: number) {
+    const session: Session = new Session(
+      this.courseList[courseIndex].classList[classIndex]
+    );
+    this.onViewSession(session);
+    this.$forceUpdate();
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .course-class-session {
+  * {
+    font-weight: 700;
+  }
   margin: 1rem auto;
   width: 40%;
   min-width: 400px;
   @media (max-width: 400px) {
-    width: 100%;
+    margin: 1rem;
+    width: auto;
     min-width: unset;
   }
 
   .add-course-btn {
-    padding: 0.5rem 1rem;
-    width: 100%;
-    background: linear-gradient(
-      to top,
-      var(--course-title-bg),
-      var(--class-title-bg),
-      var(--session-title-bg)
-    );
+    // background: linear-gradient(
+    //   to right,
+    //   var(--course-title-bg),
+    //   var(--class-title-bg),
+    //   var(--session-title-bg)
+    // );
+    background: var(--course-title-bg);
   }
+
   .add-class-btn {
-    padding: 0.5rem 1rem;
-    width: 100%;
-    background: linear-gradient(
-      to bottom,
-      var(--course-title-bg),
-      var(--class-title-bg)
-    );
+    // background: linear-gradient(
+    //   to bottom,
+    //   var(--course-title-bg),
+    //   var(--class-title-bg)
+    // );
+    background: var(--class-title-bg);
   }
   .add-session-btn {
+    // background: linear-gradient(
+    //   to bottom,
+    //   var(--class-title-bg),
+    //   var(--session-title-bg)
+    // );
+    background: var(--session-title-bg);
+  }
+
+  .add-btn {
+    // width: 80%;
     padding: 0.5rem 1rem;
     width: 100%;
-    background: linear-gradient(
-      to bottom,
-      var(--class-title-bg),
-      var(--session-title-bg)
-    );
+    border: 1px dotted var(--text-color);
+    // background: var(--shadow);
   }
   .title-pane {
     display: flex;
     cursor: pointer;
-    margin: 1rem 0;
+    margin: 1rem auto;
     justify-content: space-between;
+    border: 1px dotted var(--text-color);
     align-items: stretch;
+    background: var(--shadow);
     .info-pane {
       flex-grow: 1;
       padding: 1rem;
@@ -254,15 +317,19 @@ export default class CourseClassSession extends Vue {
   }
 
   .course-title {
+    // width: 100%;
     background: var(--course-title-bg);
   }
 
   .class-title {
+    // width: 90%;
     background: var(--class-title-bg);
   }
 
   .session-title {
+    // width: 80%;
     background: var(--session-title-bg);
+    cursor: default;
   }
 
   ul {
@@ -276,6 +343,7 @@ export default class CourseClassSession extends Vue {
       // height: 100%;
     }
   }
+
   button {
     cursor: pointer;
     background: transparent;
@@ -284,7 +352,7 @@ export default class CourseClassSession extends Vue {
 
   .ccs-list-enter-active,
   .ccs-list-leave-active {
-    transition: all 0.5s ease-in-out calc(var(--i) * 0.1s);
+    transition: all 0.2s ease-in-out calc(var(--i) * 0.05s);
     // transition: all 0.5s ease-in-out;
   }
 

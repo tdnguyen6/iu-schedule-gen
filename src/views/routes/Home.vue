@@ -2,8 +2,8 @@
   <div class="home">
     <!-- <img alt="Vue logo" src="@/views/assets/images/logo.png" /> -->
     <Navbar />
-    <course-form :course="course" />
-    <session-form :session="session" />
+    <course-form :content="course" />
+    <session-form :content="session" />
   </div>
 </template>
 

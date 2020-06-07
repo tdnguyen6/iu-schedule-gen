@@ -5,7 +5,7 @@ export class Course {
   credit: number;
   classList: Class[] = [];
 
-  constructor(title: string, credit: number) {
+  constructor(title = "", credit = 0) {
     this.title = title;
     this.credit = credit;
   }

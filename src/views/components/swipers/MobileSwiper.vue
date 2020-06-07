@@ -1,7 +1,7 @@
 <template>
   <swiper class="swiper" :options="swiperOption">
     <swiper-slide v-for="(slide, index) in slidesContent" :key="index">
-      <component :is="slidesType"></component>
+      <component :is="slidesType" :content="slide" />
     </swiper-slide>
     <div
       class="swiper-pagination swiper-pagination-bullets"
@@ -23,7 +23,7 @@ import WeekSchedule from "@/views/components/schedules/WeekSchedule.vue";
   }
 })
 export default class MobileSwiper extends Vue {
-  @Prop() private slidesContent!: Vue[];
+  @Prop() private slidesContent!: [];
   @Prop() private slidesType!: string;
 
   private name = "swiper-example-vertical";

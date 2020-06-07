@@ -10,21 +10,13 @@
     <transition name="drop-n-fade">
       <div class="real-modal" v-if="control.toggle">
         <div class="real-modal-header">
-          <h3>Modal Title</h3>
+          <h3 style="white-space: nowrap">{{ control.title }}</h3>
           <button @click="control.toggle = !control.toggle">
             <font-awesome-icon :icon="['fas', 'times']" />
           </button>
         </div>
         <div class="real-modal-content">
-          <course-form
-            v-if="control.type == 'course-form'"
-            :course="control.content"
-          />
-          <session-form
-            v-else-if="control.type == 'session-form'"
-            :session="control.content"
-          />
-          <!-- <course-form /> -->
+          <component :is="control.type" :content="control.content" />
         </div>
       </div>
     </transition>
@@ -33,10 +25,17 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-// import { Course } from "@/services/logics/Course";
-// import { Session } from "@/services/logics/Session";
+import { Course } from "@/services/logics/Course";
+import { Session } from "@/services/logics/Session";
 import CourseForm from "@/views/components/forms/CourseForm.vue";
 import SessionForm from "@/views/components/forms/SessionForm.vue";
+
+export interface ModalControl {
+  title: string;
+  toggle: boolean;
+  type: string;
+  content: Course | Session | null;
+}
 
 @Component({
   components: {

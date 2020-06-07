@@ -43,11 +43,11 @@ export default class DaySchedule extends Vue {
   constructor() {
     super();
     this.sessionList.forEach(session => {
-      this.startPeriods.push(session.startPeriod);
+      this.startPeriods.push(+session.startPeriod);
       for (let i = 0; i < session.periodCount; i++) {
         this.inPeriods.push(i + session.startPeriod);
       }
-      this.infoByStartPeriods[session.startPeriod] = session;
+      this.infoByStartPeriods[+session.startPeriod] = session;
     });
   }
 
@@ -63,7 +63,7 @@ export default class DaySchedule extends Vue {
   tr {
     border-width: 1px 1px 1px 0;
     border-style: solid;
-    border-color: black;
+    border-color: var(--text-color);
     border-collapse: collapse;
     border-spacing: 0;
   }
