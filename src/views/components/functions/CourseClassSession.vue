@@ -13,7 +13,7 @@
       >
         <div class="title-pane course-title">
           <span @click="flipCourseExpand(courseIndex)" class="info-pane">
-            {{ `Course ${courseIndex}: ${course.credit} credit(s)` }}
+            {{ `Course ${courseIndex}: ${course.title}` }}
           </span>
           <span class="edit-del-btn">
             <button @click="onViewCourse(course)">Details</button>

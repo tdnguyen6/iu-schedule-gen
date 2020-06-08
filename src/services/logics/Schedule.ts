@@ -24,10 +24,9 @@ export class Schedule {
           );
           // eslint-disable-next-line
           if (oldPeriods.some((p) => newPeriods.includes(p))) {
-            console.log(
-              `intersection between ${oldSession.course.title}: ${oldPeriods} and ${session.course.title}:${newPeriods}`
-            );
-            // console
+            // console.log(
+            //   `intersection between ${oldSession.course.title}: ${oldSession.weekDay}[${oldPeriods}] and ${session.course.title}: ${session.weekDay}[${newPeriods}]`
+            // );
             return -1; // new session intersected with old session
           }
         }
