@@ -59,6 +59,6 @@ function myCartesian(list) {
   return res;
 }
 
-const res = performanceOf_consoleTime(myCartesian, list, 100);
+const res = performanceOf_performance(fastCartesian, list, 100);
 
 console.log(res);

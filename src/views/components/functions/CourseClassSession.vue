@@ -13,10 +13,10 @@
       >
         <div class="title-pane course-title">
           <span @click="flipCourseExpand(courseIndex)" class="info-pane">
-            {{ `${course.credit}: ${course.title}` }}
+            {{ `Course ${courseIndex}: ${course.credit} credit(s)` }}
           </span>
           <span class="edit-del-btn">
-            <button @click="onViewCourse(course)">View</button>
+            <button @click="onViewCourse(course)">Details</button>
             <button @click="onDeleteCourse(courseIndex)">Delete</button>
           </span>
         </div>
@@ -40,7 +40,11 @@
                   @click="flipClassExpand(courseIndex, classIndex)"
                 >
                   <span class="info-pane">
-                    {{ `Class ${classIndex}` }}
+                    {{
+                      `Class ${classIndex}: ${Object.keys(
+                        _class.schedule.sessionByDay
+                      )}`
+                    }}
                   </span>
                   <span class="edit-del-btn">
                     <button @click="onDeleteClass(courseIndex, classIndex)">
@@ -71,11 +75,11 @@
                       >
                         <div class="title-pane session-title">
                           <span class="info-pane">
-                            {{ `Session ${sessionIndex}` }}
+                            {{ `Session ${sessionIndex}: ${session.weekDay}` }}
                           </span>
                           <span class="edit-del-btn">
                             <button @click="onViewSession(session)">
-                              View
+                              Details
                             </button>
                             <button
                               @click="
@@ -297,21 +301,27 @@ export default class CourseClassSession extends Vue {
   }
   .title-pane {
     display: flex;
+    // flex-wrap: wrap;
     cursor: pointer;
     margin: 1rem auto;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border: 1px dotted var(--text-color);
     align-items: stretch;
     background: var(--shadow);
     .info-pane {
+      display: flex;
+      align-items: center;
       flex-grow: 1;
       padding: 1rem;
     }
 
     .edit-del-btn {
-      padding-right: 1rem;
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      align-items: stretch;
       button {
-        height: 100%;
+        padding: 1rem;
       }
     }
   }

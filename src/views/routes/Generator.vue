@@ -3,11 +3,7 @@
     <Navbar />
     <h1>This is generator page</h1>
     <button @click="refresh()" class="refresh-btn">Refresh</button>
-    <CustomSwiper
-      :slidesContent="slides"
-      slidesType="WeekSchedule"
-      v-if="show"
-    />
+    <CustomSwiper :slidesContent="slides" slidesType="WeekSchedule" />
   </div>
 </template>
 
@@ -28,7 +24,6 @@ import { Schedule } from "@/services/logics/Schedule";
   }
 })
 export default class GeneratorView extends Vue {
-  private show = true;
   private slides: Schedule[];
   constructor() {
     super();
@@ -38,7 +33,6 @@ export default class GeneratorView extends Vue {
   refresh() {
     this.slides = Generator.generate(courses);
     console.log(this.slides);
-    this.show = !this.show;
     // this.$forceUpdate();
     // this.slides.shift();
     // const schedule: WeekSchedule = new WeekSchedule();

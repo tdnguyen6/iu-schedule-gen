@@ -19,9 +19,9 @@ body {
   --nav-link-hover-border-bottom: #{$m-c1};
   --logo-text: #{$gradient-light-bg};
 
-  --schedule-free-bg: var(--shadow);
-  --schedule-busy-bg: #{darken($m-c7, 25%)};
-  --schedule-header: #{$m-c1};
+  --schedule-free-bg: #{lighten($m-c3, 20%)};
+  --schedule-busy-bg: /* #{darken($m-c7, 25%)} */#{lighten($m-c3, 10%)};
+  --schedule-header: #{lighten($m-c1, 10%)};
   --swiper-pagination-bg: #{rgba($m-c8, 0.25)};
 
   --login-btn-bg: #{lighten($m-c1, 10%)};
