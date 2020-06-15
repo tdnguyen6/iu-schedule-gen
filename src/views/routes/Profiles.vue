@@ -75,6 +75,7 @@ export default class Profiles extends Vue {
                   );
                   history.replaceState(null, "", location.pathname);
                   sessionStorage.removeItem("gh-state");
+                  this.$forceUpdate();
                 });
             });
         }

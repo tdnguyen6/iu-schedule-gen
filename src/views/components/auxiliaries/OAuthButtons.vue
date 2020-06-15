@@ -50,6 +50,7 @@ export default class OAuthButtons extends Vue {
             by: "GOOGLE"
           }
           localStorage.setItem("credential", JSON.stringify(credential));
+          this.$forceUpdate();
         },
         function(error) {
           console.log(JSON.stringify(error, undefined, 2));
