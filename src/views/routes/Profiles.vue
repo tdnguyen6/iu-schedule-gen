@@ -20,13 +20,13 @@ import LoginForm from "@/views/components/forms/LoginForm.vue";
 export default class Profiles extends Vue {
   constructor() {
     super();
+    this.checkGHState();
     this.checkCredential();
   }
-  async checkCredential() {
-    await this.checkGHState();
+  checkCredential() {
     const credential = localStorage.getItem("credential");
     if (credential != null) {
-      console.log(credential);
+      console.log(JSON.parse(credential));
     } else {
       console.log("not logged in");
     }
@@ -34,15 +34,18 @@ export default class Profiles extends Vue {
 
   checkGHState() {
     const state = sessionStorage.getItem("gh-state");
+    console.log(`State is ${state}`);
     if (state == null) return;
     const queryString = location.search;
+    console.log(`Query string is ${queryString}`);
     if (queryString != "") {
       const urlParams = new URLSearchParams(queryString);
+      console.log(`Url Params is ${urlParams}`);
 
       if (urlParams.get("code") != null && urlParams.get("state") != null) {
+        console.log(`Code is ${urlParams.get("code")}`);
         const code = urlParams.get("code");
         if (urlParams.get("state") === state) {
-          console.log(`Code is ${urlParams.get("code")}`);
           const clientId = "1c59263c3aa4309442ec";
           const clientSecret = "fec5f1f104db27ab7e2e4d69511c25b94f44ddcd";
           fetch(
@@ -70,6 +73,8 @@ export default class Profiles extends Vue {
                     "credential",
                     JSON.stringify(credential)
                   );
+                })
+                .then(() => {
                   history.replaceState(null, "", location.pathname);
                   sessionStorage.removeItem("gh-state");
                 });
