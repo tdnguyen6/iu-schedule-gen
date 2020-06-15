@@ -34,16 +34,16 @@ export default class Profiles extends Vue {
 
   checkGHState() {
     const state = sessionStorage.getItem("gh-state");
-    console.log(`State is ${state}`);
+    // console.log(`State is ${state}`);
     if (state == null) return;
     const queryString = location.search;
-    console.log(`Query string is ${queryString}`);
+    // console.log(`Query string is ${queryString}`);
     if (queryString != "") {
       const urlParams = new URLSearchParams(queryString);
-      console.log(`Url Params is ${urlParams}`);
+      // console.log(`Url Params is ${urlParams}`);
 
       if (urlParams.get("code") != null && urlParams.get("state") != null) {
-        console.log(`Code is ${urlParams.get("code")}`);
+        // console.log(`Code is ${urlParams.get("code")}`);
         const code = urlParams.get("code");
         if (urlParams.get("state") === state) {
           const clientId = "1c59263c3aa4309442ec";
@@ -62,7 +62,7 @@ export default class Profiles extends Vue {
               })
                 .then(res => res.json())
                 .then(ghUser => {
-                  console.log(ghUser);
+                  // console.log(ghUser);
                   const credential = {
                     id: ghUser.id,
                     name: ghUser.name,
@@ -73,8 +73,6 @@ export default class Profiles extends Vue {
                     "credential",
                     JSON.stringify(credential)
                   );
-                })
-                .then(() => {
                   history.replaceState(null, "", location.pathname);
                   sessionStorage.removeItem("gh-state");
                 });
