@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <Navbar />
+    <Navbar :key="navBarKey" />
     <h1>This is Profiles page</h1>
     <login-form />
   </div>
@@ -18,21 +18,23 @@ import LoginForm from "@/views/components/forms/LoginForm.vue";
   }
 })
 export default class Profiles extends Vue {
+  navBarKey = 1;
   constructor() {
     super();
-    this.checkGHState();
     this.checkCredential();
   }
-  checkCredential() {
+  async checkCredential() {
+    await this.checkCredential();
     const credential = localStorage.getItem("credential");
     if (credential != null) {
       console.log(JSON.parse(credential));
+      this.navBarKey = -this.navBarKey;
     } else {
       console.log("not logged in");
     }
   }
 
-  checkGHState() {
+  async checkGHState() {
     const state = sessionStorage.getItem("gh-state");
     // console.log(`State is ${state}`);
     if (state == null) return;
@@ -48,36 +50,27 @@ export default class Profiles extends Vue {
         if (urlParams.get("state") === state) {
           const clientId = "1c59263c3aa4309442ec";
           const clientSecret = "fec5f1f104db27ab7e2e4d69511c25b94f44ddcd";
-          fetch(
+          let res = await fetch(
             `https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token?client_id=${clientId}&client_secret=${clientSecret}&code=${code}`,
             { method: "POST" }
-          )
-            .then(res => res.text())
-            .then(ans => {
-              const tokenStr = ans.split("&")[0].split("=")[1];
-              fetch("https://api.github.com/user", {
-                headers: {
-                  Authorization: `token ${tokenStr}`
-                }
-              })
-                .then(res => res.json())
-                .then(ghUser => {
-                  // console.log(ghUser);
-                  const credential = {
-                    id: ghUser.id,
-                    name: ghUser.name,
-                    img: ghUser.avatar_url,
-                    by: "GITHUB"
-                  };
-                  localStorage.setItem(
-                    "credential",
-                    JSON.stringify(credential)
-                  );
-                  history.replaceState(null, "", location.pathname);
-                  sessionStorage.removeItem("gh-state");
-                  this.$forceUpdate();
-                });
-            });
+          );
+          const ans = await res.text();
+          const tokenStr = ans.split("&")[0].split("=")[1];
+          res = await fetch("https://api.github.com/user", {
+            headers: {
+              Authorization: `token ${tokenStr}`
+            }
+          });
+          const ghUser = await res.json();
+          const credential = {
+            id: ghUser.id,
+            name: ghUser.name,
+            img: ghUser.avatar_url,
+            by: "GITHUB"
+          };
+          localStorage.setItem("credential", JSON.stringify(credential));
+          history.replaceState(null, "", location.pathname);
+          sessionStorage.removeItem("gh-state");
         }
       }
     }
