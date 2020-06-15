@@ -24,7 +24,7 @@ export default class Profiles extends Vue {
     this.checkCredential();
   }
   async checkCredential() {
-    await this.checkCredential();
+    await this.checkGHState();
     const credential = localStorage.getItem("credential");
     if (credential != null) {
       console.log(JSON.parse(credential));
