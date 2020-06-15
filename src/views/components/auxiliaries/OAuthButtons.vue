@@ -39,7 +39,7 @@ export default class OAuthButtons extends Vue {
         element,
         {},
         function(googleUser) {
-          // var profile = googleUser.getBasicProfile();
+          const profile = googleUser.getBasicProfile();
           // console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
           // console.log("Name: " + profile.getName());
           // console.log("Image URL: " + profile.getImageUrl());

@@ -20,10 +20,10 @@ import LoginForm from "@/views/components/forms/LoginForm.vue";
 export default class Profiles extends Vue {
   constructor() {
     super();
-    this.checkGHState();
     this.checkCredential();
   }
-  checkCredential() {
+  async checkCredential() {
+    await this.checkGHState();
     const credential = localStorage.getItem("credential");
     if (credential != null) {
       console.log(credential);
@@ -42,7 +42,7 @@ export default class Profiles extends Vue {
       if (urlParams.get("code") != null && urlParams.get("state") != null) {
         const code = urlParams.get("code");
         if (urlParams.get("state") === state) {
-          // console.log(`Code is ${urlParams.get("code")}`);
+          console.log(`Code is ${urlParams.get("code")}`);
           const clientId = "1c59263c3aa4309442ec";
           const clientSecret = "fec5f1f104db27ab7e2e4d69511c25b94f44ddcd";
           fetch(
@@ -59,7 +59,7 @@ export default class Profiles extends Vue {
               })
                 .then(res => res.json())
                 .then(ghUser => {
-                  // console.log(json);
+                  console.log(ghUser);
                   const credential = {
                     id: ghUser.id,
                     name: ghUser.name,
