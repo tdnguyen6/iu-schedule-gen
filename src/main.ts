@@ -27,16 +27,17 @@ new Vue({
       const redirect = sessionStorage.redirect;
       delete sessionStorage.redirect;
       console.log(redirect);
-      const split1 = redirect.split("?");
-      const path = split1[0];
-      const queryString = split1[1];
-      const split2: string[] = queryString.split("&");
-      const query: {[key: string]: string} = {};
-      split2.forEach(pair => {
-        const pairArr = pair.split("=");
-        query[pairArr[0]] = pairArr[1];
-      });
-      this.$router.push({path: path, query: query});
+      // const split1 = redirect.split("?");
+      // const path = split1[0];
+      // const queryString = split1[1];
+      // const split2: string[] = queryString.split("&");
+      // const query: {[key: string]: string} = {};
+      // split2.forEach(pair => {
+      //   const pairArr = pair.split("=");
+      //   query[pairArr[0]] = pairArr[1];
+      // });
+      // this.$router.push({path: path, query: query});
+      this.$router.push(redirect);
     }
   }
 }).$mount("#app");
