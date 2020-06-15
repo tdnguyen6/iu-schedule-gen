@@ -10,16 +10,7 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {}
 })
-export default class App extends Vue {
-  constructor() {
-    super();
-    if (sessionStorage.redirect) {
-      const redirect = sessionStorage.redirect;
-      delete sessionStorage.redirect;
-      this.$router.push(redirect);
-    }
-  }
-}
+export default class App extends Vue {}
 </script>
 
 <style lang="scss">
