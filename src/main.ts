@@ -26,7 +26,6 @@ new Vue({
     if (sessionStorage.redirect) {
       const redirect = sessionStorage.redirect;
       delete sessionStorage.redirect;
-      console.log(redirect);
       // const split1 = redirect.split("?");
       // const path = split1[0];
       // const queryString = split1[1];

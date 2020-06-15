@@ -134,6 +134,7 @@ export default class Navbar extends Vue {
     // remove course list
     localStorage.removeItem("credential");
     console.log("signedOut");
+    this.$forceUpdate();
   }
 
   showSocialBtns() {
