@@ -5,6 +5,7 @@ import { Session } from "./Session";
 export class Class {
   course: Course;
   schedule: Schedule = new Schedule();
+  expand = false;
 
   constructor(course: Course) {
     this.course = course;

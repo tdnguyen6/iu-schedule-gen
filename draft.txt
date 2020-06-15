@@ -20,3 +20,17 @@
     this.sessionList.forEach(s => (res[s.startPeriod] = s));
     return res;
   }
+
+
+credential obj
+open page => check if credential exists
+if there is credential => use that:
+  * Hi + name
+  * Avatar
+  * Social id => Use social id to fetch user_id => from user_id:
+    * fetch array of profile ids
+    * display those profiles:
+      * click use on any profile => fetch profile data using id
+      * click save on any profile => update profile data using id
+      * click del on any profile => delete profile using id => update view
+    * click add profile => create new profile => return id and associate that with new profile view

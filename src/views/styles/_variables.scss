@@ -49,8 +49,8 @@ body[data-theme="dark"] {
   --schedule-header: #{adjust-color($m-c2, $lightness: -25%, $saturation: -25%)};
   --swiper-pagination-bg: #{rgba($m-c7, 0.25)};
 
-  --login-btn-bg: #{desaturate(darken($m-c1, 20%), 40%)};
-  --login-btn-hover: #{desaturate(darken($m-c1, 10%), 20%)};
+  --login-btn-bg: #{desaturate(darken($m-c1, 20%), 20%)};
+  --login-btn-hover: #{desaturate(darken($m-c1, 10%), 10%)};
   --signup-btn-bg: #{desaturate(darken($m-c2, 20%), 40%)};
   --signup-btn-hover: #{desaturate(darken($m-c2, 10%), 20%)};
 

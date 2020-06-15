@@ -9,7 +9,8 @@ const wad: Course = new Course("WAD", 4);
 const ca: Course = new Course("CA", 4);
 const ooad: Course = new Course("OOAD", 4);
 const pdbms: Course = new Course("PDBMS", 4);
-const revo: Course = new Course("Revo", 4);
+const revo: Course = new Course("Revo", 3);
+const hcm: Course = new Course("HCM", 2);
 
 const dsa1: Class = new Class(dsa);
 const dsa2: Class = new Class(dsa);
@@ -95,6 +96,20 @@ new Session(revo5, WeekDay.WED, 4, 3, "P.T.C.Lai", "A2.402", SessionType.THEORY)
 new Session(revo6, WeekDay.MON, 7, 3, "P.T.C.Lai", "A1.401", SessionType.THEORY);
 new Session(revo7, WeekDay.TUE, 4, 3, "P.T.C.Lai", "A1.401", SessionType.THEORY);
 new Session(revo8, WeekDay.SAT, 7, 3, "N.Q.Dinh", "A1.402", SessionType.THEORY);
+
+const hcm1: Class = new Class(hcm);
+const hcm2: Class = new Class(hcm);
+const hcm3: Class = new Class(hcm);
+const hcm4: Class = new Class(hcm);
+const hcm5: Class = new Class(hcm);
+const hcm6: Class = new Class(hcm);
+
+new Session(hcm1, WeekDay.TUE, 1, 2, "P.T.T.Huong", "A2.509", SessionType.THEORY);
+new Session(hcm2, WeekDay.SAT, 4, 2, "N.P.An", "A1.402", SessionType.THEORY);
+new Session(hcm3, WeekDay.WED, 4, 2, "N.P.An", "A2.302", SessionType.THEORY);
+new Session(hcm4, WeekDay.MON, 1, 2, "T.T.Chau", "A1.202", SessionType.THEORY);
+new Session(hcm5, WeekDay.FRI, 1, 2, "N.T.V.Ha", "A2.302", SessionType.THEORY);
+new Session(hcm6, WeekDay.FRI, 4, 2, "N.T.V.Ha", "A1.202", SessionType.THEORY);
 /* const schedule = new Schedule();
 schedule.addSession(dsa1Theory);
 schedule.addSession(dsa1Lab);
@@ -107,6 +122,6 @@ schedule.addSession(wad2Lab);
 
 export { schedule }; */
 
-let courses = [dsa, wad, ca, ooad, pdbms, revo];
+let courses = [dsa, wad, ca, ooad, pdbms, revo, hcm];
 
 export { courses };

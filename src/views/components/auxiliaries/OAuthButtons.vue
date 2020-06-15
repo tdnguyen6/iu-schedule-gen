@@ -1,0 +1,79 @@
+<template>
+  <div class="oath-btns">
+    <button class="social-sign-in" id="gg-sign-in">Google</button>
+    <button class="social-sign-in" id="gh-sign-in" @click="clickGHBtn()">
+      GitHub
+    </button>
+    <button class="social-sign-in" id="fb-sign-in">Facebook</button>
+  </div>
+</template>
+
+<script lang="ts">
+/* eslint-disable */
+// @ts-nocheck
+import { Vue, Component } from "vue-property-decorator";
+@Component({
+  components: {}
+})
+export default class OAuthButtons extends Vue {
+  constructor() {
+    super();
+    this.initGGBtn();
+  }
+  // googleUser = {};
+
+  initGGBtn() {
+    gapi.load("auth2", function() {
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      const auth2 = gapi.auth2.init({
+        client_id: "560035296789-2krhmuidgp1078cioji1ju2bq71vqvls.apps.googleusercontent.com",
+        cookiepolicy: "none"
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      const ggBtn = document.getElementById("gg-sign-in");
+      attachSignin(ggBtn, auth2);
+    });
+    function attachSignin(element, auth2) {
+      auth2.attachClickHandler(
+        element,
+        {},
+        function(googleUser) {
+          // var profile = googleUser.getBasicProfile();
+          // console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
+          // console.log("Name: " + profile.getName());
+          // console.log("Image URL: " + profile.getImageUrl());
+          const credential = {
+            id: profile.getId(),
+            name: profile.getName(),
+            img: profile.getImageUrl(),
+            by: "GOOGLE"
+          }
+          localStorage.setItem("credential", JSON.stringify(credential));
+        },
+        function(error) {
+          console.log(JSON.stringify(error, undefined, 2));
+        }
+      );
+    }
+  }
+
+  clickGHBtn() {
+    const state = new Date().getTime();
+    const client_id = "1c59263c3aa4309442ec";
+    location.href = `https://github.com/login/oauth/authorize?client_id=${client_id}&state=${state}`;
+    sessionStorage.setItem("gh-state", state);
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.oath-btns {
+  .social-sign-in {
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-color);
+    border: none;
+  }
+}
+</style>

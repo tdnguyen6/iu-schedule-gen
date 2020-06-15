@@ -1,14 +1,28 @@
 <template>
   <div class="my-navbar">
+    <Modal :control="control" />
     <div class="main-nav-container">
       <router-link to="/about" id="logo">
-        <!-- <img alt="Vue logo" src="@/views/assets/images/logo.png" /> -->
         IU SCHEDULES GENERATOR
       </router-link>
       <div class="buttons-container">
         <ThemeToggle />
-        <button id="login" class="profile-btn">Sign in</button>
-        <button id="signup" class="profile-btn">Sign up</button>
+        <button
+          id="login"
+          class="profile-btn"
+          v-show="!isSignedIn()"
+          @click="showSocialBtns()"
+        >
+          Sign in
+        </button>
+        <button
+          id="signup"
+          class="profile-btn"
+          v-show="isSignedIn()"
+          @click="signOut()"
+        >
+          Sign out
+        </button>
         <button class="hamburger-menu" @click="clickHamburgerMenu">
           <font-awesome-icon
             :icon="['fas', 'bars']"
@@ -36,15 +50,24 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import ThemeToggle from "./ThemeToggle.vue";
+import Modal from "@/views/components/auxiliaries/Modal.vue";
+import { ModalControl } from "@/views/components/auxiliaries/Modal.vue";
 
 @Component({
   components: {
-    ThemeToggle
+    ThemeToggle,
+    Modal
   }
 })
 export default class Navbar extends Vue {
   private navMenuIsOpen: boolean;
   private hamburgerMenuClicked = false;
+  private control: ModalControl = {
+    title: "",
+    toggle: false,
+    type: "",
+    content: null
+  };
 
   get routerLinks() {
     if (this.navMenuIsOpen || this.hamburgerMenuClicked) {
@@ -99,6 +122,22 @@ export default class Navbar extends Vue {
     activeLinks.forEach(l => {
       l.classList.add("active");
     });
+  }
+
+  isSignedIn() {
+    return sessionStorage.getItem("credential") != null;
+  }
+
+  signOut() {
+    // remove credential in session
+    // clear cache
+    // remove course list
+    console.log("signedOut");
+  }
+
+  showSocialBtns() {
+    this.control.toggle = true;
+    this.control.type = "OAuthButtons";
   }
 }
 </script>

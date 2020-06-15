@@ -4,6 +4,7 @@ export class Course {
   title: string;
   credit: number;
   classList: Class[] = [];
+  expand = false;
 
   constructor(title = "UNTITLED", credit = 1) {
     this.title = title;

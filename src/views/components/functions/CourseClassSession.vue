@@ -21,7 +21,7 @@
           </span>
         </div>
         <transition name="ccs-list">
-          <div v-if="expandInfoList[courseIndex].courseExpand">
+          <div v-if="course.expand">
             <button
               @click="addClass(courseIndex)"
               class="add-btn add-class-btn"
@@ -53,12 +53,7 @@
                   </span>
                 </div>
                 <transition name="ccs-list">
-                  <div
-                    v-if="
-                      expandInfoList[courseIndex].courseExpand &&
-                        expandInfoList[courseIndex].classExpand[classIndex]
-                    "
-                  >
+                  <div v-if="course.expand && _class.expand">
                     <button
                       @click="addSession(courseIndex, classIndex)"
                       class="add-btn add-session-btn"
@@ -117,10 +112,10 @@ import { Class } from "@/services/logics/Class";
 import Modal from "@/views/components/auxiliaries/Modal.vue";
 import { ModalControl } from "@/views/components/auxiliaries/Modal.vue";
 
-interface ExpandInfo {
-  courseExpand: boolean;
-  classExpand: boolean[];
-}
+// interface ExpandInfo {
+//   courseExpand: boolean;
+//   classExpand: boolean[];
+// }
 
 @Component({
   components: {
@@ -129,7 +124,7 @@ interface ExpandInfo {
 })
 export default class CourseClassSession extends Vue {
   @Prop() private courseList!: Course[];
-  private expandInfoList: ExpandInfo[] = [];
+  // private expandInfoList: ExpandInfo[] = [];
   private control: ModalControl = {
     title: "",
     toggle: false,
@@ -137,45 +132,37 @@ export default class CourseClassSession extends Vue {
     content: null
   };
 
-  constructor() {
-    super();
-    this.expandInfoList = this.savedExpandInfo;
-  }
-
-  saveExpandInfo() {
-    // sessionStorage.setItem("expandInfo", JSON.stringify(this.expandInfoList));
-  }
-
-  get savedExpandInfo(): ExpandInfo[] {
-    const savedString = sessionStorage.getItem("expandInfo");
-    if (savedString == null) {
-      const expandInfoList: ExpandInfo[] = [];
-      for (let i = 0; i < this.courseList.length; i++) {
-        const course: Course = this.courseList[i];
-        const expandInfo: ExpandInfo = {
-          courseExpand: false,
-          classExpand: new Array(course.classList.length).fill(false)
-        };
-        expandInfoList.push(expandInfo);
-      }
-      return expandInfoList;
-    } else {
-      return JSON.parse(savedString);
-    }
-  }
+  // get savedExpandInfo(): ExpandInfo[] {
+  //   const savedString = sessionStorage.getItem("expandInfo");
+  //   if (savedString == null) {
+  //     const expandInfoList: ExpandInfo[] = [];
+  //     for (let i = 0; i < this.courseList.length; i++) {
+  //       const course: Course = this.courseList[i];
+  //       const expandInfo: ExpandInfo = {
+  //         courseExpand: false,
+  //         classExpand: new Array(course.classList.length).fill(false)
+  //       };
+  //       expandInfoList.push(expandInfo);
+  //     }
+  //     return expandInfoList;
+  //   } else {
+  //     return JSON.parse(savedString);
+  //   }
+  // }
 
   flipClassExpand(courseIndex: number, classIndex: number) {
-    this.expandInfoList[courseIndex].classExpand[classIndex] = !this
-      .expandInfoList[courseIndex].classExpand[classIndex];
-    this.saveExpandInfo();
+    // this.expandInfoList[courseIndex].classExpand[classIndex] = !this
+    //   .expandInfoList[courseIndex].classExpand[classIndex];
+    this.courseList[courseIndex].classList[classIndex].expand = !this
+      .courseList[courseIndex].classList[classIndex].expand;
     this.$forceUpdate();
   }
 
   flipCourseExpand(courseIndex: number) {
-    this.expandInfoList[courseIndex].courseExpand = !this.expandInfoList[
-      courseIndex
-    ].courseExpand;
-    this.saveExpandInfo();
+    // this.expandInfoList[courseIndex].courseExpand = !this.expandInfoList[
+    //   courseIndex
+    // ].courseExpand;
+    this.courseList[courseIndex].expand = !this.courseList[courseIndex].expand;
   }
 
   onViewCourse(course: Course) {
@@ -194,16 +181,14 @@ export default class CourseClassSession extends Vue {
 
   onDeleteCourse(courseIndex: number) {
     this.courseList.splice(courseIndex, 1);
-    this.expandInfoList.splice(courseIndex, 1);
-    this.saveExpandInfo();
+    // this.expandInfoList.splice(courseIndex, 1);
   }
 
   onDeleteClass(courseIndex: number, classIndex: number) {
     const course: Course = this.courseList[courseIndex];
     const _class: Class = course.classList[classIndex];
     course.removeClass(_class);
-    this.expandInfoList[courseIndex].classExpand.splice(classIndex, 1);
-    this.saveExpandInfo();
+    // this.expandInfoList[courseIndex].classExpand.splice(classIndex, 1);
   }
 
   onDeleteSession(
@@ -215,7 +200,6 @@ export default class CourseClassSession extends Vue {
     const _class: Class = course.classList[classIndex];
     const session: Session = _class.getAllSessions()[sessionIndex];
     _class.schedule.removeSession(session);
-    this.saveExpandInfo();
     this.$forceUpdate();
   }
 
@@ -226,19 +210,17 @@ export default class CourseClassSession extends Vue {
   addCourse() {
     const course: Course = new Course();
     this.courseList.push(course);
-    const expandInfo: ExpandInfo = {
-      courseExpand: true,
-      classExpand: []
-    };
-    this.expandInfoList.push(expandInfo);
-    this.saveExpandInfo();
+    // const expandInfo: ExpandInfo = {
+    //   courseExpand: true,
+    //   classExpand: []
+    // };
+    // this.expandInfoList.push(expandInfo);
     this.onViewCourse(course);
   }
 
   addClass(courseIndex: number) {
     new Class(this.courseList[courseIndex]);
-    this.expandInfoList[courseIndex].classExpand.push(true);
-    this.saveExpandInfo();
+    // this.expandInfoList[courseIndex].classExpand.push(true);
   }
 
   addSession(courseIndex: number, classIndex: number) {

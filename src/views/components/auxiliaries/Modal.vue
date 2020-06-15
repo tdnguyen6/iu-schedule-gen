@@ -29,6 +29,7 @@ import { Course } from "@/services/logics/Course";
 import { Session } from "@/services/logics/Session";
 import CourseForm from "@/views/components/forms/CourseForm.vue";
 import SessionForm from "@/views/components/forms/SessionForm.vue";
+import OAuthButtons from "@/views/components/auxiliaries/OAuthButtons.vue";
 
 export interface ModalControl {
   title: string;
@@ -40,7 +41,8 @@ export interface ModalControl {
 @Component({
   components: {
     CourseForm,
-    SessionForm
+    SessionForm,
+    OAuthButtons
   }
 })
 export default class Modal extends Vue {
