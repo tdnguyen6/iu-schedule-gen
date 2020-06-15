@@ -125,13 +125,14 @@ export default class Navbar extends Vue {
   }
 
   isSignedIn() {
-    return sessionStorage.getItem("credential") != null;
+    return localStorage.getItem("credential") != null;
   }
 
   signOut() {
     // remove credential in session
     // clear cache
     // remove course list
+    localStorage.removeItem("credential");
     console.log("signedOut");
   }
 
