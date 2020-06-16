@@ -129,7 +129,8 @@ export default class Navbar extends Vue {
   signOut() {
     localStorage.removeItem("credential");
     console.log("signedOut");
-    this.$forceUpdate();
+    // this.$forceUpdate();
+    location.href = `${location.origin}/${location.pathname.split("/")[1]}`;
   }
 
   showSocialBtns() {
