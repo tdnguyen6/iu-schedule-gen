@@ -70,36 +70,19 @@ export default class OAuthButtons extends Vue {
     sessionStorage.setItem("gh-state", state);
   }
 
-  async clickFBBtn() {
-    await FB.login(function(response) {
+  clickFBBtn() {
+    FB.login(function(response) {
       if (response.status === "connected") {
-        console.log("status is connected");
-        console.log(response);
-        let id;
-        let name;
-        let img;
-        await FB.api("/me", function(response) {
-          console.log("/me");
-          console.log(response);
-          id = response.id;
-          name = response.name;
-        });
-        await FB.api("/me/picture?redirect=0", function(response) {
-          console.log("/me/picture?redirect=0");
-          console.log(response);
-          img = response.url
-        });
-        console.log(`id: ${id}`);
-        console.log(`name: ${name}`);
-        console.log(`img: ${img}`);
-        const credential = {
-          id: id,
-          name: name,
-          img: img,
-          by: "FACEBOOK"
-        };
-        localStorage.setItem("credential", JSON.stringify(credential));
+        FB.api("/me?fields=id,name,picture", function(response) {
+          const credential = {
+            id: response.id,
+            name: response.name,
+            img: response.picture.url,
+            by: "FACEBOOK"
+          };
+          localStorage.setItem("credential", JSON.stringify(credential));
           // this.$router.push("/profiles");
+        });
       } else {
         console.log(
           "The person is not logged into your webpage or we are unable to tell"
