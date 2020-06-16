@@ -16,8 +16,7 @@ import { Vue, Component } from "vue-property-decorator";
   components: {}
 })
 export default class OAuthButtons extends Vue {
-  constructor() {
-    super();
+  mounted() {
     this.initGGBtn();
   }
   // googleUser = {};
@@ -28,12 +27,13 @@ export default class OAuthButtons extends Vue {
       const auth2 = gapi.auth2.init({
         client_id: "560035296789-2krhmuidgp1078cioji1ju2bq71vqvls.apps.googleusercontent.com",
         cookiepolicy: "none",
+        ux_mode: "redirect",
         redirect_uri: "https://tidunguyen.github.io/iu-schedule-gen/profiles"
         // Request scopes in addition to 'profile' and 'email'
         //scope: 'additional_scope'
       });
       const ggBtn = document.getElementById("gg-sign-in");
-      if (ggBtn != null) attachSignin(ggBtn, auth2);
+      attachSignin(ggBtn, auth2);
     });
     function attachSignin(element, auth2) {
       auth2.attachClickHandler(
