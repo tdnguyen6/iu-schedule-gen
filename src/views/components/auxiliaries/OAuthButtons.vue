@@ -27,7 +27,8 @@ export default class OAuthButtons extends Vue {
       // Retrieve the singleton for the GoogleAuth library and set up the client.
       const auth2 = gapi.auth2.init({
         client_id: "560035296789-2krhmuidgp1078cioji1ju2bq71vqvls.apps.googleusercontent.com",
-        cookiepolicy: "none"
+        cookiepolicy: "none",
+        redirect_uri: "https://tidunguyen.github.io/iu-schedule-gen/profiles"
         // Request scopes in addition to 'profile' and 'email'
         //scope: 'additional_scope'
       });
