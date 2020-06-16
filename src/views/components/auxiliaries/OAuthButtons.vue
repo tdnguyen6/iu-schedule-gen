@@ -54,7 +54,7 @@ export default class OAuthButtons extends Vue {
             by: "GOOGLE"
           };
           localStorage.setItem("credential", JSON.stringify(credential));
-          location = location.origin + "/profiles";
+          location = `${location.origin}/${location.pathname.split("/")[1]}/profiles`;
         },
         function(error) {
           console.log(JSON.stringify(error, undefined, 2));
@@ -81,7 +81,7 @@ export default class OAuthButtons extends Vue {
             by: "FACEBOOK"
           };
           localStorage.setItem("credential", JSON.stringify(credential));
-          location = location.origin + "/iu-scheprofiles";
+          location = `${location.origin}/${location.pathname.split("/")[1]}/profiles`;
         });
       } else {
         console.log(
