@@ -1,8 +1,12 @@
 <template>
   <div class="oath-btns">
     <button class="social-sign-in" id="gg-sign-in">Google</button>
-    <button class="social-sign-in" id="gh-sign-in" @click="clickGHBtn()">GitHub</button>
-    <button class="social-sign-in" id="fb-sign-in" @click="clickFBBtn()">Facebook</button>
+    <button class="social-sign-in" id="gh-sign-in" @click="clickGHBtn()">
+      GitHub
+    </button>
+    <button class="social-sign-in" id="fb-sign-in" @click="clickFBBtn()">
+      Facebook
+    </button>
   </div>
 </template>
 
@@ -71,9 +75,9 @@ export default class OAuthButtons extends Vue {
       if (response.status === "connected") {
         console.log("status is connected");
         console.log(response);
-        const id;
-        const name;
-        const img;
+        let id;
+        let name;
+        let img;
         FB.api("/me", function(response) {
           console.log("/me");
           console.log(response);

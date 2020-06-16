@@ -10,10 +10,22 @@
           class="profile-btn"
           v-show="!isSignedIn()"
           @click="showSocialBtns()"
-        >Sign in</button>
-        <button id="signup" class="profile-btn" v-show="isSignedIn()" @click="signOut()">Sign out</button>
+        >
+          Sign in
+        </button>
+        <button
+          id="signup"
+          class="profile-btn"
+          v-show="isSignedIn()"
+          @click="signOut()"
+        >
+          Sign out
+        </button>
         <button class="hamburger-menu" @click="clickHamburgerMenu">
-          <font-awesome-icon :icon="['fas', 'bars']" v-if="routerLinks.length <= 0" />
+          <font-awesome-icon
+            :icon="['fas', 'bars']"
+            v-if="routerLinks.length <= 0"
+          />
           <font-awesome-icon :icon="['fas', 'times']" v-else />
         </button>
       </div>
