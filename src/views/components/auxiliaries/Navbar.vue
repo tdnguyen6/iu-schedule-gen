@@ -2,9 +2,7 @@
   <div class="my-navbar">
     <Modal :control="control" />
     <div class="main-nav-container">
-      <router-link to="/about" id="logo">
-        IU SCHEDULES GENERATOR
-      </router-link>
+      <router-link to="/about" id="logo">IU SCHEDULES GENERATOR</router-link>
       <div class="buttons-container">
         <ThemeToggle />
         <button
@@ -12,22 +10,10 @@
           class="profile-btn"
           v-show="!isSignedIn()"
           @click="showSocialBtns()"
-        >
-          Sign in
-        </button>
-        <button
-          id="signup"
-          class="profile-btn"
-          v-show="isSignedIn()"
-          @click="signOut()"
-        >
-          Sign out
-        </button>
+        >Sign in</button>
+        <button id="signup" class="profile-btn" v-show="isSignedIn()" @click="signOut()">Sign out</button>
         <button class="hamburger-menu" @click="clickHamburgerMenu">
-          <font-awesome-icon
-            :icon="['fas', 'bars']"
-            v-if="routerLinks.length <= 0"
-          />
+          <font-awesome-icon :icon="['fas', 'bars']" v-if="routerLinks.length <= 0" />
           <font-awesome-icon :icon="['fas', 'times']" v-else />
         </button>
       </div>
@@ -132,6 +118,20 @@ export default class Navbar extends Vue {
     // remove credential in session
     // clear cache
     // remove course list
+    const by = JSON.parse(localStorage.getItem("credential") + "").by;
+    if (by == "GOOGLE") {
+      // eslint-disable-next-line
+      // @ts-ignore
+      // eslint-disable-next-line
+      gapi.auth2.getAuthInstance().signOut();
+    } else if (by == "FACEBOOK") {
+      // eslint-disable-next-line
+      // @ts-ignore
+      // eslint-disable-next-line
+      FB.logout(function(response) {
+        console.log(response);
+      });
+    }
     localStorage.removeItem("credential");
     console.log("signedOut");
     this.$forceUpdate();

@@ -1,8 +1,8 @@
 /* eslint-disable */
 window.fbAsyncInit = function () {
   FB.init({
-    appId: "254583929300330",
-    cookie: true,
+    appId: "599580667329529",
+    cookie: false,
     xfbml: true,
     version: "v7.0",
   });

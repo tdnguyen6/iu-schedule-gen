@@ -1,10 +1,8 @@
 <template>
   <div class="oath-btns">
     <button class="social-sign-in" id="gg-sign-in">Google</button>
-    <button class="social-sign-in" id="gh-sign-in" @click="clickGHBtn()">
-      GitHub
-    </button>
-    <button class="social-sign-in" id="fb-sign-in">Facebook</button>
+    <button class="social-sign-in" id="gh-sign-in" @click="clickGHBtn()">GitHub</button>
+    <button class="social-sign-in" id="fb-sign-in" @click="clickFBBtn()">Facebook</button>
   </div>
 </template>
 
@@ -25,7 +23,8 @@ export default class OAuthButtons extends Vue {
     gapi.load("auth2", function() {
       // Retrieve the singleton for the GoogleAuth library and set up the client.
       const auth2 = gapi.auth2.init({
-        client_id: "560035296789-2krhmuidgp1078cioji1ju2bq71vqvls.apps.googleusercontent.com",
+        client_id:
+          "560035296789-2krhmuidgp1078cioji1ju2bq71vqvls.apps.googleusercontent.com",
         cookiepolicy: "none"
         // ux_mode: "redirect",
         // redirect_uri: "https://tidunguyen.github.io/iu-schedule-gen/profiles"
@@ -49,8 +48,9 @@ export default class OAuthButtons extends Vue {
             name: profile.getName(),
             img: profile.getImageUrl(),
             by: "GOOGLE"
-          }
+          };
           localStorage.setItem("credential", JSON.stringify(credential));
+          this.$router.push("/profiles");
         },
         function(error) {
           console.log(JSON.stringify(error, undefined, 2));
@@ -64,6 +64,41 @@ export default class OAuthButtons extends Vue {
     const client_id = "1c59263c3aa4309442ec";
     location.href = `https://github.com/login/oauth/authorize?client_id=${client_id}&state=${state}`;
     sessionStorage.setItem("gh-state", state);
+  }
+
+  clickFBBtn() {
+    FB.login(function(response) {
+      if (response.status === "connected") {
+        console.log("status is connected");
+        console.log(response);
+        const id;
+        const name;
+        const img;
+        FB.api("/me", function(response) {
+          console.log("/me");
+          console.log(response);
+          id = response.id;
+          name = response.name;
+        });
+        FB.api("/me/picture?redirect=0", function(response) {
+          console.log("/me/picture?redirect=0");
+          console.log(response);
+          img = response.url
+        });
+        const credential = {
+          id: id,
+          name: name,
+          img: img,
+          by: "FACEBOOK"
+        };
+        localStorage.setItem("credential", JSON.stringify(credential));
+          // this.$router.push("/profiles");
+      } else {
+        console.log(
+          "The person is not logged into your webpage or we are unable to tell"
+        );
+      }
+    });
   }
 }
 </script>
