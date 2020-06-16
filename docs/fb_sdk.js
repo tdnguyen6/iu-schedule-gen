@@ -8,9 +8,9 @@ window.fbAsyncInit = function () {
   });
 
   FB.AppEvents.logPageView();
-  FB.getLoginStatus(function (response) {
-    statusChangeCallback(response);
-  });
+  // FB.getLoginStatus(function (response) {
+  //   statusChangeCallback(response);
+  // });
 };
 
 (function (d, s, id) {
@@ -25,32 +25,32 @@ window.fbAsyncInit = function () {
   fjs.parentNode.insertBefore(js, fjs);
 })(document, "script", "facebook-jssdk");
 
-function checkLoginState() {
-  FB.getLoginStatus(function (response) {
-    statusChangeCallback(response);
-  });
-}
+// function checkLoginState() {
+//   FB.getLoginStatus(function (response) {
+//     statusChangeCallback(response);
+//   });
+// }
 
-// Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-function testAPI() {
-  console.log("Welcome!  Fetching your information.... ");
-  FB.api("/me", function (response) {
-    console.log("Successful login for: " + response.name);
-    document.getElementById("status").innerHTML =
-      "Thanks for logging in, " + response.name + "!";
-  });
-}
+// // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+// function testAPI() {
+//   console.log("Welcome!  Fetching your information.... ");
+//   FB.api("/me", function (response) {
+//     console.log("Successful login for: " + response.name);
+//     document.getElementById("status").innerHTML =
+//       "Thanks for logging in, " + response.name + "!";
+//   });
+// }
 
-function statusChangeCallback(response) {
-  // Called with the results from FB.getLoginStatus().
-  console.log("statusChangeCallback");
-  console.log(response); // The current login status of the person.
-  if (response.status === "connected") {
-    // Logged into your webpage and Facebook.
-    testAPI();
-  } else {
-    // Not logged into your webpage or we are unable to tell.
-    document.getElementById("status").innerHTML =
-      "Please log " + "into this webpage.";
-  }
-}
+// function statusChangeCallback(response) {
+//   // Called with the results from FB.getLoginStatus().
+//   console.log("statusChangeCallback");
+//   console.log(response); // The current login status of the person.
+//   if (response.status === "connected") {
+//     // Logged into your webpage and Facebook.
+//     testAPI();
+//   } else {
+//     // Not logged into your webpage or we are unable to tell.
+//     document.getElementById("status").innerHTML =
+//       "Please log " + "into this webpage.";
+//   }
+// }

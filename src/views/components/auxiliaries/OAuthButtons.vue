@@ -54,13 +54,13 @@ export default class OAuthButtons extends Vue {
             by: "GOOGLE"
           };
           localStorage.setItem("credential", JSON.stringify(credential));
-          this.$router.push("/profiles");
         },
         function(error) {
           console.log(JSON.stringify(error, undefined, 2));
         }
       );
     }
+    this.$router.push("/profiles");
   }
 
   clickGHBtn() {
@@ -89,6 +89,9 @@ export default class OAuthButtons extends Vue {
           console.log(response);
           img = response.url
         });
+        console.log(`id: ${id}`);
+        console.log(`name: ${name}`);
+        console.log(`img: ${img}`);
         const credential = {
           id: id,
           name: name,
