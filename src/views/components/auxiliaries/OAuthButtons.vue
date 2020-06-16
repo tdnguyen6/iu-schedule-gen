@@ -36,9 +36,9 @@ export default class OAuthButtons extends Vue {
         //scope: 'additional_scope'
       });
       const ggBtn = document.getElementById("gg-sign-in");
-      attachSignin(ggBtn, auth2);
+      attachSignin(ggBtn, auth2, this);
     });
-    function attachSignin(element, auth2) {
+    function attachSignin(element, auth2, vueInstance) {
       auth2.attachClickHandler(
         element,
         {},
@@ -54,13 +54,13 @@ export default class OAuthButtons extends Vue {
             by: "GOOGLE"
           };
           localStorage.setItem("credential", JSON.stringify(credential));
+          vueInstance.$router.push("/profiles");
         },
         function(error) {
           console.log(JSON.stringify(error, undefined, 2));
         }
       );
     }
-    this.$router.push("/profiles");
   }
 
   clickGHBtn() {
@@ -70,21 +70,21 @@ export default class OAuthButtons extends Vue {
     sessionStorage.setItem("gh-state", state);
   }
 
-  clickFBBtn() {
-    FB.login(function(response) {
+  async clickFBBtn() {
+    await FB.login(function(response) {
       if (response.status === "connected") {
         console.log("status is connected");
         console.log(response);
         let id;
         let name;
         let img;
-        FB.api("/me", function(response) {
+        await FB.api("/me", function(response) {
           console.log("/me");
           console.log(response);
           id = response.id;
           name = response.name;
         });
-        FB.api("/me/picture?redirect=0", function(response) {
+        await FB.api("/me/picture?redirect=0", function(response) {
           console.log("/me/picture?redirect=0");
           console.log(response);
           img = response.url
