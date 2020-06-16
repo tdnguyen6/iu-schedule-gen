@@ -36,9 +36,9 @@ export default class OAuthButtons extends Vue {
         //scope: 'additional_scope'
       });
       const ggBtn = document.getElementById("gg-sign-in");
-      attachSignin(ggBtn, auth2, this);
+      attachSignin(ggBtn, auth2);
     });
-    function attachSignin(element, auth2, vueInstance) {
+    function attachSignin(element, auth2) {
       auth2.attachClickHandler(
         element,
         {},
@@ -54,7 +54,7 @@ export default class OAuthButtons extends Vue {
             by: "GOOGLE"
           };
           localStorage.setItem("credential", JSON.stringify(credential));
-          vueInstance.$router.push("/profiles");
+          location = location.origin + "/profiles";
         },
         function(error) {
           console.log(JSON.stringify(error, undefined, 2));
@@ -81,7 +81,7 @@ export default class OAuthButtons extends Vue {
             by: "FACEBOOK"
           };
           localStorage.setItem("credential", JSON.stringify(credential));
-          // this.$router.push("/profiles");
+          location = location.origin + "/iu-scheprofiles";
         });
       } else {
         console.log(
