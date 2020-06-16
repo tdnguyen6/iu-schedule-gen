@@ -32,7 +32,7 @@ export default class OAuthButtons extends Vue {
         //scope: 'additional_scope'
       });
       const ggBtn = document.getElementById("gg-sign-in");
-      attachSignin(ggBtn, auth2);
+      if (ggBtn != null) attachSignin(ggBtn, auth2);
     });
     function attachSignin(element, auth2) {
       auth2.attachClickHandler(
