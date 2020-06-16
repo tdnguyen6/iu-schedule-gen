@@ -127,23 +127,6 @@ export default class Navbar extends Vue {
   }
 
   signOut() {
-    // remove credential in session
-    // clear cache
-    // remove course list
-    const by = JSON.parse(localStorage.getItem("credential") + "").by;
-    if (by == "GOOGLE") {
-      // eslint-disable-next-line
-      // @ts-ignore
-      // eslint-disable-next-line
-      gapi.auth2.getAuthInstance().signOut();
-    } else if (by == "FACEBOOK") {
-      // eslint-disable-next-line
-      // @ts-ignore
-      // eslint-disable-next-line
-      FB.logout(function(response) {
-        console.log(response);
-      });
-    }
     localStorage.removeItem("credential");
     console.log("signedOut");
     this.$forceUpdate();
