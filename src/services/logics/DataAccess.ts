@@ -9,18 +9,20 @@ export class DataAccess {
   static courseList: Course[] = [];
   static currentProfileID: number = -1;
   // static domain = "http://localhost/webapps/iu-schedule-gen";
-  static domain = "https://cors-anywhere.herokuapp.com/http://my-api.rf.gd/iu-schedule-gen";
+  static corsAnywhere = "https://cors-anywhere.herokuapp.com"
+  static domain = "http://my-api.rf.gd/iu-schedule-gen";
 
   static async getProfileIDs(platform_id: string, platform_name: string) {
     const toBeSent = {
       platform_id: platform_id,
       platform_name: platform_name,
     };
-    const resp = await fetch(`${this.domain}/get-profile-ids`, {
+    const resp = await fetch(`${this.corsAnywhere}/${this.domain}/get-profile-ids`, {
       method: "POST",
       body: JSON.stringify(toBeSent),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Origin": "*"
       }
     });
     const resp_json = await resp.json();
@@ -32,11 +34,12 @@ export class DataAccess {
       platform_id: platform_id,
       platform_name: platform_name,
     };
-    const resp = await fetch(`${this.domain}/new-profile`, {
+    const resp = await fetch(`${this.corsAnywhere}/${this.domain}/new-profile`, {
       method: "POST",
       body: JSON.stringify(toBeSent),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Origin": "*"
       }
     });
     const resp_json = await resp.json();
@@ -68,9 +71,12 @@ export class DataAccess {
         type: "blob",
         compression: "DEFLATE",
       });
-      const resp = await fetch(`${this.domain}/save?id=${this.currentProfileID}`, {
+      const resp = await fetch(`${this.corsAnywhere}${this.domain}/save?id=${this.currentProfileID}`, {
         method: "POST",
         body: zipData,
+        headers: {
+          "Origin": "*"
+        }
       });
       // const resp_json = await resp.json();
       // console.log(resp_json);
