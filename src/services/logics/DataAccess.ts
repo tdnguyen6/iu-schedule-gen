@@ -9,7 +9,7 @@ export class DataAccess {
   static courseList: Course[] = [];
   static currentProfileID: number = -1;
   // static domain = "http://localhost/webapps/iu-schedule-gen";
-  static domain = "https://tidu.000webhostapp.com/";
+  static domain = "https://tidu.000webhostapp.com";
 
   static async getProfileIDs(platform_id: string, platform_name: string) {
     const toBeSent = {
