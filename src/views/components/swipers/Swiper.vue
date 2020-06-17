@@ -28,7 +28,7 @@ export default class CustomSwiper extends Vue {
   @Prop() private slidesContent!: [];
   @Prop() private slidesType!: string;
 
-  private isMobile: boolean = window.innerWidth < 600;
+  private isMobile: boolean = window.innerWidth < 700;
 
   constructor() {
     super();
@@ -37,7 +37,7 @@ export default class CustomSwiper extends Vue {
   }
 
   onResize() {
-    this.isMobile = window.innerWidth < 600;
+    this.isMobile = window.innerWidth < 700;
   }
 }
 </script>

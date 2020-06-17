@@ -122,6 +122,11 @@ schedule.addSession(wad2Lab);
 
 export { schedule }; */
 
+import * as Flatted from "flatted";
+
 let courses = [dsa, wad, ca, ooad, pdbms, revo, hcm];
 
+courses = Flatted.parse(Flatted.stringify(courses));
+
+console.log(Flatted.stringify(dsa));
 export { courses };

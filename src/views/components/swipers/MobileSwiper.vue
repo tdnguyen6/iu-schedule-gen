@@ -30,10 +30,11 @@ export default class MobileSwiper extends Vue {
   private title = "'Vertical slider";
   swiperOption = {
     // autoHeight: true,
+    grabCursor: true,
     direction: "vertical",
     pagination: {
       el: ".swiper-pagination",
-      clickable: true,
+      // clickable: true,
       type: "fraction"
       // renderBullet(index: number, className: string) {
       //   return `<span class="${className} swiper-pagination-bullet-custom">${index +

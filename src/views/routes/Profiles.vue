@@ -1,38 +1,100 @@
 <template>
-  <div class="about">
-    <Navbar :key="navBarKey" />
-    <h1>This is Profiles page</h1>
-    <login-form />
+  <div class="profiles">
+    <div class="content-wrapper">
+      <Modal :control="control" />
+      <Navbar />
+      <div v-html="profileInfo" class="profile-info"></div>
+      <div class="profile-choices">
+        <transition name="profile-list">
+          <button @click="newProfile()" class="add-btn" v-if="hasProfile">
+            <font-awesome-icon :icon="['fas', 'plus']" /> New Profile
+          </button>
+        </transition>
+        <transition-group name="profile-list" tag="ul" appear>
+          <li
+            class="profile-item"
+            v-for="(id, index) in profileIDs"
+            :class="{ currentProfile: id == loading }"
+            :key="+index"
+            :style="`--i: ${index}`"
+          >
+            <div class="profile-label">Profile ID: {{ id }}</div>
+            <div class="btns-div">
+              <button @click="loadProfile(id)" :disabled="id == loading">
+                Load
+              </button>
+              <button @click="saveProfile()" :disabled="id != loading">
+                Save
+              </button>
+              <button @click="deleteProfile(id)">Delete</button>
+            </div>
+          </li>
+        </transition-group>
+      </div>
+    </div>
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
 import Navbar from "@/views/components/auxiliaries/Navbar.vue";
 import { Vue, Component } from "vue-property-decorator";
-import LoginForm from "@/views/components/forms/LoginForm.vue";
+import { DataAccess } from "@/services/logics/DataAccess";
+import Modal from "@/views/components/auxiliaries/Modal.vue";
+import { ModalControl } from "@/views/components/auxiliaries/Modal.vue";
+import Footer from "@/views/components/auxiliaries/Footer.vue";
 
 @Component({
   components: {
     Navbar,
-    LoginForm
+    Modal,
+    Footer
   }
 })
 export default class Profiles extends Vue {
-  navBarKey = 1;
+  profileInfo = "";
+  profileIDs: number[] = [];
+  hasProfile = false;
+  loading = DataAccess.currentProfileID;
+  control: ModalControl = {
+    title: "",
+    toggle: false,
+    type: "",
+    content: null
+  };
   constructor() {
     super();
     this.checkCredential();
   }
   async checkCredential() {
     await this.checkGHState();
-    const credential = localStorage.getItem("credential");
-    if (credential != null) {
-      console.log(JSON.parse(credential));
-      this.navBarKey = -this.navBarKey;
+    const credentialStr = localStorage.getItem("credential");
+    if (credentialStr != null) {
+      this.hasProfile = true;
+      const credential = JSON.parse(credentialStr);
+      console.log(credential);
+      this.profileInfo = `
+        <h3>Hello ${credential.name}</h3>
+        <img src="${credential.img}">
+      `;
+      this.profileIDs = await DataAccess.getProfileIDs(
+        credential.id,
+        credential.by
+      );
     } else {
       console.log("not logged in");
+      this.profileInfo = `
+      <center style="padding: 2rem">
+        <h3>You have not signed in</h3>
+        <p style="padding: 1rem 0">Please sign in to see your profile and to be able to save your courses</p>
+      </center>
+      `;
     }
   }
+
+  // get currentProfileID() {
+  //   return DataAccess.currentProfileID;
+  // }
 
   async checkGHState() {
     const state = sessionStorage.getItem("gh-state");
@@ -75,5 +137,135 @@ export default class Profiles extends Vue {
       }
     }
   }
+
+  async newProfile() {
+    const credential = JSON.parse(localStorage.credential);
+    const newID = await DataAccess.newProfile(credential.id, credential.by);
+    this.profileIDs.unshift(newID);
+  }
+
+  async loadProfile(profileID: number) {
+    try {
+      await DataAccess.load(profileID);
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+    this.loading = profileID;
+    // this.$forceUpdate();
+  }
+
+  async saveProfile() {
+    try {
+      await DataAccess.save();
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+    this.control.title = `Profile ${this.loading} successfully saved`;
+    this.control.toggle = true;
+  }
+
+  async deleteProfile(profileID: number) {
+    try {
+      await DataAccess.delete(profileID);
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+    if (profileID == this.loading) {
+      DataAccess.courseList = [];
+    }
+    this.profileIDs = this.profileIDs.filter(e => e != profileID);
+    // this.$forceUpdate();
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+.profiles {
+  .modal {
+    z-index: 100;
+  }
+  /deep/ .profile-info {
+    margin: 2rem auto;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-evenly;
+    align-items: center;
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .profile-choices {
+    * {
+      font-weight: 700;
+    }
+    .add-btn {
+      padding: 1rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      --i: 10;
+    }
+    margin: 2rem auto;
+    ul {
+      padding: 0;
+      .profile-item {
+        margin: 1rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: stretch;
+        border: 1px dotted var(--text-color);
+        .profile-label {
+          flex-grow: 1;
+          padding: 1rem;
+        }
+        .btns-div {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: stretch;
+          button {
+            padding: 1rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            &:disabled {
+              cursor: unset;
+              opacity: 0.5;
+              z-index: unset;
+            }
+          }
+        }
+      }
+    }
+    width: 50%;
+    min-width: 400px;
+    @media (max-width: 400px) {
+      margin: 1rem;
+      width: auto;
+      min-width: unset;
+    }
+
+    .profile-list-enter-active,
+    .profile-list-leave-active {
+      transition: all 0.25s ease-in-out calc(var(--i) * 0.05s);
+      // transition: all 0.5s ease-in-out;
+    }
+    .profile-list-enter,
+    .profile-list-leave-to {
+      opacity: 0;
+    }
+
+    .profile-item {
+      list-style: none;
+      background: var(--class-title-bg);
+    }
+    .currentProfile {
+      background: var(--course-title-bg);
+    }
+  }
+}
+</style>

@@ -10,6 +10,19 @@ $m-c8: #2C292D;
 $gradient-dark-bg: linear-gradient(to right, #{$m-c1}, #{$m-c3}, #{$m-c2});
 $gradient-light-bg: linear-gradient(to right, #{darken($m-c1, 10)}, #{darken($m-c3, 25)}, #{darken($m-c2, 10)});
 
+$fb-blue-1: #1877F2;
+$fb-blue-2: #2851A3;
+
+$gg-red: #d34836;
+$gg1: #4285F4;
+$gg2: #EA4335;
+$gg3: #FBBC05;
+$gg4: #34A853;
+
+$gh-dark: #24292e;
+
+$white-hover: hsla(0,0%,100%,.7);
+
 body {
   --bg: #{$m-c7};
   --nav-bg: var(--bg);
@@ -33,6 +46,19 @@ body {
   --course-title-bg: #{lighten($m-c1, 10%)};
   --class-title-bg: #{lighten($m-c2, 10%)};
   --session-title-bg: #{lighten($m-c3, 10%)};
+
+  --gg-sign-in-fg: white;
+  --gh-sign-in-fg: white;
+  --fb-sign-in-fg: #{$fb-blue-2};
+
+  --gg-sign-in-fg-hover: #{$white-hover};
+  --gh-sign-in-fg-hover: #{$white-hover};
+  --fb-sign-in-fg-hover: #{$white-hover};
+
+  --gg-sign-in-bg: #{$white-hover};
+  --gh-sign-in-bg: #{$gh-dark};
+  --fb-sign-in-bg: white;
+  --social-btn-border: transparent;
 }
 
 body[data-theme="dark"] {
@@ -58,4 +84,9 @@ body[data-theme="dark"] {
   --course-title-bg: #{desaturate(darken($m-c1, 20%), 40%)};
   --class-title-bg: #{desaturate(darken($m-c2, 20%), 40%)};
   --session-title-bg: #{desaturate(darken($m-c3, 20%), 40%)};
+  --social-btn-border: var(--text-color);
+
+  --gg-sign-in-bg: rgba(0,0,0,.15);
+  --fb-sign-in-bg: #{$fb-blue-2};
+  --fb-sign-in-fg: white;
 }

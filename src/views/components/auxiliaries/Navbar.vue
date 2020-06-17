@@ -135,6 +135,7 @@ export default class Navbar extends Vue {
 
   showSocialBtns() {
     this.control.toggle = true;
+    this.control.title = "Sign In With";
     this.control.type = "OAuthButtons";
   }
 }

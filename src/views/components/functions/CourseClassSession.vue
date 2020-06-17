@@ -35,11 +35,11 @@
                 :style="`--i: ${classIndex}`"
                 class="class-li"
               >
-                <div
-                  class="title-pane class-title"
-                  @click="flipClassExpand(courseIndex, classIndex)"
-                >
-                  <span class="info-pane">
+                <div class="title-pane class-title">
+                  <span
+                    class="info-pane"
+                    @click="flipClassExpand(courseIndex, classIndex)"
+                  >
                     {{
                       `Class ${classIndex}: ${Object.keys(
                         _class.schedule.sessionByDay
@@ -107,15 +107,8 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import { Course } from "@/services/logics/Course";
 import { Session } from "@/services/logics/Session";
 import { Class } from "@/services/logics/Class";
-// import { SessionType } from "@/services/logics/Session";
-// import { WeekDay } from "@/services/logics/WeekDay";
 import Modal from "@/views/components/auxiliaries/Modal.vue";
 import { ModalControl } from "@/views/components/auxiliaries/Modal.vue";
-
-// interface ExpandInfo {
-//   courseExpand: boolean;
-//   classExpand: boolean[];
-// }
 
 @Component({
   components: {
@@ -124,7 +117,6 @@ import { ModalControl } from "@/views/components/auxiliaries/Modal.vue";
 })
 export default class CourseClassSession extends Vue {
   @Prop() private courseList!: Course[];
-  // private expandInfoList: ExpandInfo[] = [];
   private control: ModalControl = {
     title: "",
     toggle: false,
@@ -132,36 +124,13 @@ export default class CourseClassSession extends Vue {
     content: null
   };
 
-  // get savedExpandInfo(): ExpandInfo[] {
-  //   const savedString = sessionStorage.getItem("expandInfo");
-  //   if (savedString == null) {
-  //     const expandInfoList: ExpandInfo[] = [];
-  //     for (let i = 0; i < this.courseList.length; i++) {
-  //       const course: Course = this.courseList[i];
-  //       const expandInfo: ExpandInfo = {
-  //         courseExpand: false,
-  //         classExpand: new Array(course.classList.length).fill(false)
-  //       };
-  //       expandInfoList.push(expandInfo);
-  //     }
-  //     return expandInfoList;
-  //   } else {
-  //     return JSON.parse(savedString);
-  //   }
-  // }
-
   flipClassExpand(courseIndex: number, classIndex: number) {
-    // this.expandInfoList[courseIndex].classExpand[classIndex] = !this
-    //   .expandInfoList[courseIndex].classExpand[classIndex];
     this.courseList[courseIndex].classList[classIndex].expand = !this
       .courseList[courseIndex].classList[classIndex].expand;
     this.$forceUpdate();
   }
 
   flipCourseExpand(courseIndex: number) {
-    // this.expandInfoList[courseIndex].courseExpand = !this.expandInfoList[
-    //   courseIndex
-    // ].courseExpand;
     this.courseList[courseIndex].expand = !this.courseList[courseIndex].expand;
   }
 
@@ -181,14 +150,12 @@ export default class CourseClassSession extends Vue {
 
   onDeleteCourse(courseIndex: number) {
     this.courseList.splice(courseIndex, 1);
-    // this.expandInfoList.splice(courseIndex, 1);
   }
 
   onDeleteClass(courseIndex: number, classIndex: number) {
     const course: Course = this.courseList[courseIndex];
     const _class: Class = course.classList[classIndex];
     course.removeClass(_class);
-    // this.expandInfoList[courseIndex].classExpand.splice(classIndex, 1);
   }
 
   onDeleteSession(
@@ -210,17 +177,11 @@ export default class CourseClassSession extends Vue {
   addCourse() {
     const course: Course = new Course();
     this.courseList.push(course);
-    // const expandInfo: ExpandInfo = {
-    //   courseExpand: true,
-    //   classExpand: []
-    // };
-    // this.expandInfoList.push(expandInfo);
     this.onViewCourse(course);
   }
 
   addClass(courseIndex: number) {
     new Class(this.courseList[courseIndex]);
-    // this.expandInfoList[courseIndex].classExpand.push(true);
   }
 
   addSession(courseIndex: number, classIndex: number) {
@@ -247,38 +208,12 @@ export default class CourseClassSession extends Vue {
     min-width: unset;
   }
 
-  .add-course-btn {
-    // background: linear-gradient(
-    //   to right,
-    //   var(--course-title-bg),
-    //   var(--class-title-bg),
-    //   var(--session-title-bg)
-    // );
-    background: var(--course-title-bg);
-  }
-
-  .add-class-btn {
-    // background: linear-gradient(
-    //   to bottom,
-    //   var(--course-title-bg),
-    //   var(--class-title-bg)
-    // );
-    background: var(--class-title-bg);
-  }
-  .add-session-btn {
-    // background: linear-gradient(
-    //   to bottom,
-    //   var(--class-title-bg),
-    //   var(--session-title-bg)
-    // );
-    background: var(--session-title-bg);
-  }
-
   .add-btn {
     // width: 80%;
     padding: 0.5rem 1rem;
     width: 100%;
-    border: 1px dotted var(--text-color);
+    text-align: left;
+    // border: 1px dotted var(--text-color);
     // background: var(--shadow);
   }
   .title-pane {
