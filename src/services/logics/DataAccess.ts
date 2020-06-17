@@ -10,7 +10,8 @@ export class DataAccess {
   static currentProfileID: number = -1;
   // static domain = "http://localhost/webapps/iu-schedule-gen";
   static corsAnywhere = "https://cors-anywhere.herokuapp.com"
-  static hosting = "http://my-api.atwebpages.com/iu-schedule-gen";
+  // static hosting = "http://my-api.atwebpages.com/iu-schedule-gen";
+  static hosting = "https://tidu.000webhostapp.com/iu-schedule-gen";
   static domain = `${DataAccess.corsAnywhere}/${DataAccess.hosting}`;
 
   static async getProfileIDs(platform_id: string, platform_name: string) {
@@ -50,7 +51,7 @@ export class DataAccess {
   static async load(profileID: number) {
     const zip = new JSZip();
     try {
-      const resp = await fetch(`${this.domain}/load?id=${profileID}`);
+      const resp = await fetch(`${this.hosting}/load?id=${profileID}`);
       const data = await resp.blob();
       if (data.size > 0) {
         const zipFolder = await zip.loadAsync(data);
@@ -88,7 +89,7 @@ export class DataAccess {
 
   static async delete(profileID: number) {
     try {
-      const resp = await fetch(`${this.domain}/delete?id=${profileID}`);
+      const resp = await fetch(`${this.hosting}/delete?id=${profileID}`);
       // const resp_json = await resp.json();
       // console.log(resp_json);
     } catch (e) {
