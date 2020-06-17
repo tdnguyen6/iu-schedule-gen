@@ -10,15 +10,14 @@ export class DataAccess {
   static currentProfileID: number = -1;
   // static domain = "http://localhost/webapps/iu-schedule-gen";
   static corsAnywhere = "https://cors-anywhere.herokuapp.com"
-  static root = "http://my-api.rf.gd/iu-schedule-gen";
-  static domain = `${DataAccess.corsAnywhere}/${DataAccess.root}`;
+  static domain = "https:/tidu.000webhostapp.com";
 
   static async getProfileIDs(platform_id: string, platform_name: string) {
     const toBeSent = {
       platform_id: platform_id,
       platform_name: platform_name,
     };
-    const resp = await fetch(`${this.domain}/get-profile-ids`, {
+    const resp = await fetch(`${this.corsAnywhere}/${this.domain}/get-profile-ids`, {
       method: "POST",
       body: JSON.stringify(toBeSent),
       headers: {
@@ -35,7 +34,7 @@ export class DataAccess {
       platform_id: platform_id,
       platform_name: platform_name,
     };
-    const resp = await fetch(`${this.domain}/new-profile`, {
+    const resp = await fetch(`${this.corsAnywhere}/${this.domain}/new-profile`, {
       method: "POST",
       body: JSON.stringify(toBeSent),
       headers: {
@@ -72,7 +71,7 @@ export class DataAccess {
         type: "blob",
         compression: "DEFLATE",
       });
-      const resp = await fetch(`${this.domain}/save?id=${this.currentProfileID}`, {
+      const resp = await fetch(`${this.corsAnywhere}/${this.domain}/save?id=${this.currentProfileID}`, {
         method: "POST",
         body: zipData,
         headers: {
