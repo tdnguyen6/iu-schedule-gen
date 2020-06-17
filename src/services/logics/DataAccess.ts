@@ -9,7 +9,7 @@ export class DataAccess {
   static courseList: Course[] = [];
   static currentProfileID: number = -1;
   // static domain = "http://localhost/webapps/iu-schedule-gen";
-  static domain = "https://cors-anywhere.herokuapp.com/my-api.rf.gd/iu-schedule-gen";
+  static domain = "https://cors-anywhere.herokuapp.com/https://tidu.000webhostapp.com";
 
   static async getProfileIDs(platform_id: string, platform_name: string) {
     const toBeSent = {
