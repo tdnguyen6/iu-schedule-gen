@@ -14,7 +14,7 @@
       <div class="profile-choices">
         <transition name="profile-list">
           <button @click="newProfile()" class="add-btn" v-if="hasProfile">
-            <font-awesome-icon :icon="['fas', 'plus']" /> New Profile
+            <font-awesome-icon :icon="['fas', 'plus']" />New Profile
           </button>
         </transition>
         <transition-group name="profile-list" tag="ul" appear>
@@ -74,7 +74,14 @@ export default class Profiles extends Vue {
   };
   created() {
     this.loading = true;
-    this.checkCredential().finally(() => (this.loading = false));
+    this.checkCredential()
+      .catch(e => {
+        location.href = `${location.origin}/${
+          location.pathname.split("/")[1]
+        }/profiles`;
+        console.log(e);
+      })
+      .finally(() => (this.loading = false));
   }
   async checkCredential() {
     await this.checkGHState();
@@ -158,6 +165,9 @@ export default class Profiles extends Vue {
       this.loading = true;
       newID = await DataAccess.newProfile(credential.id, credential.by);
     } catch (e) {
+      location.href = `${location.origin}/${
+        location.pathname.split("/")[1]
+      }/profiles`;
       console.log(e);
     } finally {
       this.loading = false;
@@ -170,6 +180,9 @@ export default class Profiles extends Vue {
       this.loading = true;
       await DataAccess.load(profileID);
     } catch (e) {
+      location.href = `${location.origin}/${
+        location.pathname.split("/")[1]
+      }/profiles`;
       console.log(e);
     } finally {
       this.loading = false;
@@ -183,6 +196,9 @@ export default class Profiles extends Vue {
       this.loading = true;
       await DataAccess.save();
     } catch (e) {
+      location.href = `${location.origin}/${
+        location.pathname.split("/")[1]
+      }/profiles`;
       console.log(e);
     } finally {
       this.loading = false;
@@ -196,6 +212,9 @@ export default class Profiles extends Vue {
       this.loading = true;
       await DataAccess.delete(profileID);
     } catch (e) {
+      location.href = `${location.origin}/${
+        location.pathname.split("/")[1]
+      }/profiles`;
       console.log(e);
     } finally {
       this.loading = false;
