@@ -44,7 +44,7 @@ export default class OAuthButtons extends Vue {
         // Request scopes in addition to 'profile' and 'email'
         //scope: 'additional_scope'
       });
-      const ggBtn = document.getElementById("gg-sign-in");
+      const ggBtn = document.getElementsByClassName("gg-sign-in")[0];
       attachSignin(ggBtn, auth2);
     });
     function attachSignin(element, auth2) {
