@@ -26,7 +26,8 @@
     "vue-awesome-swiper": "^4.1.1",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^8.4.2",
-    "vue-router": "^3.3.2"
+    "vue-router": "^3.3.2",
+    "vue-spinner": "^1.0.3"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",

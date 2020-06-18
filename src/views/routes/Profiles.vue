@@ -1,5 +1,12 @@
 <template>
   <div class="profiles">
+    <div class="loader-wrapper" v-show="loading">
+      <pacman-loader
+        color="var(--text-color)"
+        size="25px"
+        class="loader"
+      ></pacman-loader>
+    </div>
     <div class="content-wrapper">
       <Modal :control="control" />
       <Navbar />
@@ -14,16 +21,16 @@
           <li
             class="profile-item"
             v-for="(id, index) in profileIDs"
-            :class="{ currentProfile: id == loading }"
+            :class="{ currentProfile: id == loadedID }"
             :key="+index"
             :style="`--i: ${index}`"
           >
             <div class="profile-label">Profile ID: {{ id }}</div>
             <div class="btns-div">
-              <button @click="loadProfile(id)" :disabled="id == loading">
+              <button @click="loadProfile(id)" :disabled="id == loadedID">
                 Load
               </button>
-              <button @click="saveProfile()" :disabled="id != loading">
+              <button @click="saveProfile()" :disabled="id != loadedID">
                 Save
               </button>
               <button @click="deleteProfile(id)">Delete</button>
@@ -43,28 +50,31 @@ import { DataAccess } from "@/services/logics/DataAccess";
 import Modal from "@/views/components/auxiliaries/Modal.vue";
 import { ModalControl } from "@/views/components/auxiliaries/Modal.vue";
 import Footer from "@/views/components/auxiliaries/Footer.vue";
+import PacmanLoader from "vue-spinner/src/PacmanLoader.vue";
 
 @Component({
   components: {
     Navbar,
     Modal,
-    Footer
+    Footer,
+    PacmanLoader
   }
 })
 export default class Profiles extends Vue {
+  loading = false;
   profileInfo = "";
   profileIDs: number[] = [];
   hasProfile = false;
-  loading = DataAccess.currentProfileID;
+  loadedID = DataAccess.currentProfileID;
   control: ModalControl = {
     title: "",
     toggle: false,
     type: "",
     content: null
   };
-  constructor() {
-    super();
-    this.checkCredential();
+  created() {
+    this.loading = true;
+    this.checkCredential().finally(() => (this.loading = false));
   }
   async checkCredential() {
     await this.checkGHState();
@@ -133,6 +143,9 @@ export default class Profiles extends Vue {
           localStorage.setItem("credential", JSON.stringify(credential));
           history.replaceState(null, "", location.pathname);
           sessionStorage.removeItem("gh-state");
+          location.href = `${location.origin}/${
+            location.pathname.split("/")[1]
+          }/profiles`;
         }
       }
     }
@@ -140,40 +153,54 @@ export default class Profiles extends Vue {
 
   async newProfile() {
     const credential = JSON.parse(localStorage.credential);
-    const newID = await DataAccess.newProfile(credential.id, credential.by);
+    let newID;
+    try {
+      this.loading = true;
+      newID = await DataAccess.newProfile(credential.id, credential.by);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      this.loading = false;
+    }
     this.profileIDs.unshift(newID);
   }
 
   async loadProfile(profileID: number) {
     try {
+      this.loading = true;
       await DataAccess.load(profileID);
     } catch (e) {
       console.log(e);
-      return;
+    } finally {
+      this.loading = false;
     }
-    this.loading = profileID;
+    this.loadedID = profileID;
     // this.$forceUpdate();
   }
 
   async saveProfile() {
     try {
+      this.loading = true;
       await DataAccess.save();
     } catch (e) {
       console.log(e);
-      return;
+    } finally {
+      this.loading = false;
     }
-    this.control.title = `Profile ${this.loading} successfully saved`;
+    this.control.title = `Profile ${this.loadedID} successfully saved`;
     this.control.toggle = true;
   }
 
   async deleteProfile(profileID: number) {
     try {
+      this.loading = true;
       await DataAccess.delete(profileID);
     } catch (e) {
       console.log(e);
-      return;
+    } finally {
+      this.loading = false;
     }
-    if (profileID == this.loading) {
+    if (profileID == this.loadedID) {
       DataAccess.courseList = [];
     }
     this.profileIDs = this.profileIDs.filter(e => e != profileID);
@@ -184,6 +211,18 @@ export default class Profiles extends Vue {
 
 <style lang="scss" scoped>
 .profiles {
+  .loader-wrapper {
+    position: fixed;
+    z-index: 150;
+    height: 100vh;
+    width: 100vw;
+    background: var(--bg);
+    .loader {
+      margin: auto;
+      width: 120px;
+      top: 45vh;
+    }
+  }
   .modal {
     z-index: 100;
   }

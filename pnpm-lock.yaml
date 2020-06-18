@@ -16,6 +16,7 @@ dependencies:
   vue-class-component: 7.2.3_vue@2.6.11
   vue-property-decorator: 8.4.2_vue@2.6.11
   vue-router: 3.3.2
+  vue-spinner: 1.0.3
 devDependencies:
   '@types/jest': 24.9.1
   '@typescript-eslint/eslint-plugin': 2.34.0_4d7b57a2de70d5f860ec42d3f1ecdb5d
@@ -11739,6 +11740,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-5sEbcfb7MW8mY8lbUVbF4kgcipGXsagkM/X+pb6n0MhjP+RorWIUTPAPSqgPaiPOxVCXgAItBl8Vwz8vq78faA==
+  /vue-spinner/1.0.3:
+    dev: false
+    resolution:
+      integrity: sha512-Phh6QC/Bh80ZE/0SH9ADw4irbRGwFK6VZsTksPHpPm16xga2OXwNC2nI7SEPnndUZP+Lgu1wu+pbH6i6+5siBQ==
   /vue-style-loader/4.1.2:
     dependencies:
       hash-sum: 1.0.2
@@ -12281,4 +12286,5 @@ specifiers:
   vue-class-component: ^7.2.3
   vue-property-decorator: ^8.4.2
   vue-router: ^3.3.2
+  vue-spinner: ^1.0.3
   vue-template-compiler: ^2.6.11

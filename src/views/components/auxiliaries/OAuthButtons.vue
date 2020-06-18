@@ -27,7 +27,7 @@ import { Vue, Component } from "vue-property-decorator";
   components: {}
 })
 export default class OAuthButtons extends Vue {
-  mounted() {
+  created() {
     this.initGGBtn();
   }
   // googleUser = {};

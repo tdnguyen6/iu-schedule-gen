@@ -51,7 +51,7 @@ export class DataAccess {
   static async load(profileID: number) {
     const zip = new JSZip();
     try {
-      const resp = await fetch(`${this.domain}/load?id=${profileID}`);
+      const resp = await fetch(`${this.hosting}/load?id=${profileID}`);
       const data = await resp.blob();
       if (data.size > 0) {
         const zipFolder = await zip.loadAsync(data);
