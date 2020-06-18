@@ -53,6 +53,7 @@ export class DataAccess {
     try {
       const resp = await fetch(`${this.hosting}/load?id=${profileID}`);
       const data = await resp.blob();
+      this.courseList = [];
       if (data.size > 0) {
         const zipFolder = await zip.loadAsync(data);
         const flattedCourseList = await zipFolder.file("flattedCourseList.txt").async('text');
@@ -98,7 +99,6 @@ export class DataAccess {
   }
 
   static revive(rawCourseList: {}[]) {
-    this.courseList = [];
     rawCourseList.forEach(rawCourse => {
       const c: Course = Course.revive(rawCourse);
       this.courseList.push(c);

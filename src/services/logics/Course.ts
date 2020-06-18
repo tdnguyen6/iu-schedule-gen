@@ -26,6 +26,7 @@ export class Course {
       // @ts-ignore
       getAllSessions(rawClass.schedule).forEach((session) => {
         session.class = _class;
+        session.course = c;
         _class.schedule.addSession(session);
       });
       c.addClass(_class);
