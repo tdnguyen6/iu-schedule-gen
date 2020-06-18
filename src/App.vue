@@ -31,10 +31,10 @@ body {
     box-sizing: border-box;
     min-height: 100vh;
     margin-bottom: -3rem;
-    padding-bottom: 3rem;
+    padding-bottom: 5rem;
     @media (max-width: 600px) {
       margin-bottom: -8rem;
-      padding-bottom: 8rem;
+      padding-bottom: 10rem;
     }
   }
 }
