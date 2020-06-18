@@ -14,7 +14,7 @@
       <div class="profile-choices">
         <transition name="profile-list">
           <button @click="newProfile()" class="add-btn" v-if="hasProfile">
-            <font-awesome-icon :icon="['fas', 'plus']" />New Profile
+            <font-awesome-icon :icon="['fas', 'plus']" /> New Profile
           </button>
         </transition>
         <transition-group name="profile-list" tag="ul" appear>
