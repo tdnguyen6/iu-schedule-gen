@@ -7,7 +7,7 @@
         class="loader"
       ></pacman-loader>
     </div>
-    <div class="content-wrapper">
+    <div class="content-wrapper" :class="{ blur: loading }">
       <Modal :control="control" />
       <Navbar />
       <div v-html="profileInfo" class="profile-info"></div>
@@ -39,7 +39,7 @@
         </transition-group>
       </div>
     </div>
-    <Footer />
+    <Footer :class="{ blur: loading }" />
   </div>
 </template>
 
@@ -236,15 +236,22 @@ export default class Profiles extends Vue {
     height: 100vh;
     width: 100vw;
     background: var(--bg);
+    opacity: 0.5;
     .loader {
       margin: auto;
       width: 120px;
       top: 45vh;
+      opacity: 1;
     }
   }
   .modal {
     z-index: 100;
   }
+
+  .blur {
+    filter: blur(5px);
+  }
+
   /deep/ .profile-info {
     margin: 2rem auto;
     display: flex;
