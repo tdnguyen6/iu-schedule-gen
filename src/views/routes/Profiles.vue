@@ -235,13 +235,11 @@ export default class Profiles extends Vue {
     z-index: 150;
     height: 100vh;
     width: 100vw;
-    background: var(--bg);
-    opacity: 0.5;
+    background: var(--loading-overlay);
     .loader {
       margin: auto;
       width: 120px;
       top: 45vh;
-      opacity: 1;
     }
   }
   .modal {

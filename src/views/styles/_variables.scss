@@ -59,6 +59,7 @@ body {
   --gh-sign-in-bg: #{$gh-dark};
   --fb-sign-in-bg: white;
   --social-btn-border: transparent;
+  --loading-overlay: #{rgba($m-c7, 0.5)};
 }
 
 body[data-theme="dark"] {
@@ -89,4 +90,6 @@ body[data-theme="dark"] {
   --gg-sign-in-bg: rgba(0,0,0,.15);
   --fb-sign-in-bg: #{$fb-blue-2};
   --fb-sign-in-fg: white;
+
+  --loading-overlay: #{rgba($m-c8, 0.5)};
 }
