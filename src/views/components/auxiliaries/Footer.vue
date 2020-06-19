@@ -17,7 +17,6 @@ footer {
   padding: 0.5rem 2rem;
   font-weight: 700;
   display: flex;
-  z-index: 50;
   position: relative;
   box-shadow: 0 -10px 5px -5px var(--shadow);
   justify-content: space-between;
