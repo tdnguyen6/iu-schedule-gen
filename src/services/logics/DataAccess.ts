@@ -10,8 +10,8 @@ export class DataAccess {
   static currentProfileID: number = -1;
   // static domain = "http://localhost/webapps/iu-schedule-gen";
   static corsAnywhere = "https://cors-anywhere.herokuapp.com"
-  // static hosting = "http://my-api.atwebpages.com/iu-schedule-gen";
-  static hosting = "https://tidu.000webhostapp.com/iu-schedule-gen";
+  static hosting = "http://my-api.atwebpages.com/iu-schedule-gen";
+  // static hosting = "https://tidu.000webhostapp.com/iu-schedule-gen";
   static domain = `${DataAccess.corsAnywhere}/${DataAccess.hosting}`;
 
   static async getProfileIDs(platform_id: string, platform_name: string) {
