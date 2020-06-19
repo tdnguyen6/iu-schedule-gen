@@ -15,6 +15,9 @@ export default class App extends Vue {}
 
 <style lang="scss">
 body {
+  .modal {
+    z-index: 1000;
+  }
   .page-header {
     text-align: center;
     margin: 3rem;

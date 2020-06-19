@@ -202,7 +202,6 @@ export default class CourseClassSession extends Vue {
   margin: 1rem auto;
   width: 40%;
   min-width: 400px;
-  z-index: 100;
   @media (max-width: 400px) {
     margin: 1rem;
     width: auto;
