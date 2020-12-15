@@ -59,8 +59,8 @@ export default class Home extends Vue {
           "Go To Courses Page to add Courses, Classes and Sessions",
           "Go To Generator Page to see all suitable schedules ",
           "Save or Delete your Profile (If you signed in)",
-          "Read wonderful things on About Page ~(˘▾˘~)",
-          "Fork or Star this project on GitHub (✿´‿`)"
+          "Read wonderful things on the About Page 🎫",
+          "Fork or Star this project on GitHub 🌟"
         ]
       : [];
   }

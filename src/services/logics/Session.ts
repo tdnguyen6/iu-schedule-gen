@@ -29,7 +29,7 @@ export class Session {
     this.weekDay = WeekDay[weekDay];
     this.room = room;
     this.type = type;
-    c.schedule.addSession(this);
+    c.schedule.addSession(this, false);
   }
 }
 
