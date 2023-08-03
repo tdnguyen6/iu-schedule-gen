@@ -20,7 +20,7 @@
     "core-js": "^3.6.5",
     "fast-cartesian": "^5.0.0",
     "flatted": "^3.0.2",
-    "jszip": "^3.4.0",
+    "jszip": "^3.8.0",
     "swiper": "^5.4.1",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
